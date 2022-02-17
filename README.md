@@ -3,7 +3,8 @@
 ## Things to do
 
 - [] Google Map
-  - How to regulate other location on the map
+  - [] How to regulate other location on the map
+  - [] Fastest way from point to point
 - [] Separate authentication from Foodtruck owner and normal users
   - [] Authentication page design
 - [] Update all Foodtruck owners' location in realtime if they are online
@@ -17,7 +18,6 @@
     - [X] lng
     - [X] name
     - [] info
-    - [] open at
     - [] close at
     - [] like
     - [] rating

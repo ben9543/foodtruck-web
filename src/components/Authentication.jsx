@@ -2,10 +2,10 @@ import { useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { signUpCustom, signInCustom, signOutCustom, auth } from "../firebase";
 import { useSelector, useDispatch } from 'react-redux';
-import { signInWithGoogle } from "../auth/auth_google";
+// import { signInWithGoogle } from "../auth/auth_google";
 import {
     signInUser,
-    signUpUser,
+    // signUpUser,
     signOutUser
 } from "../redux/slices/userSlice";
 
