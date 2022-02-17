@@ -2,16 +2,17 @@
 
 ## Things to do
 
+- [] AppBar: positioning
 - [] Google Map
   - [] How to regulate other location on the map
   - [] Fastest way from point to point
 - [] Separate authentication from Foodtruck owner and normal users
-  - [] Authentication page design
+  - [x] Authentication page design
 - [] Update all Foodtruck owners' location in realtime if they are online
   - [] Once Footruck owners logged in, keep sends location data to Firebase Database
   - [X] Read data from Fireabse Realtime Database for Foodtruck owners
 - [] Marker style update
-- [] Style component
+- [x] Style component
 - [] Database design
   - [] FoodTruck database model
     - [X] lat

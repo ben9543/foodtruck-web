@@ -5,15 +5,15 @@ import { useSelector } from 'react-redux';
 function App() {
   const user = useSelector((state) => state.user);
   return (
-    <>
-    <Authentication />
-    {
-      user.loggedIn ? 
-      <Geolocator/>
-        :
-      null
-    }
-    </>
+    <div className="App text-gray-800">
+      <Authentication />
+      {
+        user.loggedIn ? 
+        <Geolocator/>
+          :
+        null
+      }
+    </div>
   );
 }
 

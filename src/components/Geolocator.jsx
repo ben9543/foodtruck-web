@@ -83,15 +83,15 @@ class Geolocator extends React.Component {
         ) : !this.props.isGeolocationEnabled ? (
             <div>Geolocation is not enabled</div>
         ) : this.props.coords ? (
-            <div style={{ height: '100vh', width: '100%' }}>
+            <div style={{ height: '100vh', width: '100%', position: "relative"}}>
                 <GoogleMapReact
-                bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_APIKEY }}
-                defaultCenter={{
-                    lat:this.props.coords.latitude, 
-                    lng:this.props.coords.longitude
-                }}
-                defaultZoom={15}
-                >
+                    bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_APIKEY }}
+                    defaultCenter={{
+                        lat:this.props.coords.latitude, 
+                        lng:this.props.coords.longitude
+                    }}
+                    defaultZoom={15}
+                    >
                 
                 {/* User marker */}
                 <Marker
@@ -107,6 +107,7 @@ class Geolocator extends React.Component {
                         console.log(v)
                         return (
                             <FoodTruckMarker
+                                key={k}
                                 lat={v.lat}
                                 lng={v.lng}
                                 text={v.name}
@@ -114,7 +115,6 @@ class Geolocator extends React.Component {
                         );
                     })
                 }
-
                 </GoogleMapReact>
             </div>
         ) : (

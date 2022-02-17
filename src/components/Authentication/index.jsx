@@ -8,7 +8,7 @@ import {
 } from "../../redux/slices/userSlice";
 
 // Styles
-import { AuthContainer, Form, Input, Button, UserProfile, ToggleText, SmallTitle, ErrorHandler } from "./styles";
+import { AuthContainer, Form, Input, Button, AppBar, ToggleText, SmallTitle, ErrorHandler } from "./styles";
 
 const SIGNIN = "Sign In";
 const SIGNUP = "Sign Up";
@@ -40,18 +40,22 @@ const Authentication = () => {
     }
 
     return(
-        <div>
+        <div className="fixed w-full">
             {
                 userState.loggedIn
                 ? 
-                    <UserProfile uid={userState.uid} email={userState.email}/>
+                    <AppBar
+                        title={"Food Truck Tracker"}
+                        uid={userState.uid} 
+                        email={userState.email}
+                    />
                 :
                 <AuthContainer>
                     <SmallTitle>{authMode}</SmallTitle>
                     <Form onSubmit={handleSubmit}>
                         <Input className="shadow rounded-t bg-white" id="email" value={email} onChange={e=>setEmail(e.target.value)} type="email" placeholder="Email" />
                         <Input className="shadow bg-white" id="password" value={pass} onChange={e=>setPass(e.target.value)} type="password" placeholder="Password" />
-                        <Button className="shadow rounded-b bg-blue-500 text-white">Submit</Button>
+                        <Button className="shadow rounded-b bg-blue-500 text-gray-100">Submit</Button>
                         { errorMsg ? <ErrorHandler errorMsg={errorMsg}/> : null }
                         <ToggleText
                             onClick={handleAuthToggle}

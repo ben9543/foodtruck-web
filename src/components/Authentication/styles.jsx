@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { signOutCustom } from "../../firebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const AuthContainer = styled.div`
     display: flex;
@@ -53,11 +54,23 @@ export const ToggleText = ({text, onClick}) => {
     )
 }
 
-export const UserProfile = ({uid, email}) => {
+export const AppBar = ({uid, email, title}) => {
+    return(
+        <header className="bg-blue-500 h-16 w-full text-gray-100 flex items-center justify-between">
+            <div className="h-10 w-10">
+            <FontAwesomeIcon icon="fa-solid fa-bars" />
+            </div>
+            <p className="text-2xl text-center">{title}</p>
+            <div>
+                <UserProfile uid={uid} email={email}/>
+            </div>
+        </header>
+    );
+}
+
+const UserProfile = ({uid, email}) => {
     return (
         <div>
-            <p>ID: {uid}</p>
-            <p>Email: {email}</p>
             <LogOut/>
         </div>
     )
