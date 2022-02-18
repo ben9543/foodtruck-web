@@ -3,7 +3,7 @@ import { geolocated } from "react-geolocated";
 import GoogleMapReact from 'google-map-react';
 import Loading from "react-simple-loading";
 import { getDatabase, ref, onValue } from "firebase/database";
-// {/*this.props.coords.latitude/longitude/altitude/heading/speed*/}
+
 const config = {
     positionOptions: {
         enableHighAccuracy: true,
@@ -64,17 +64,34 @@ const FoodTruckMarker = ({lat, lng, text}) => {
 class Geolocator extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {data: []};
+        this.state = {
+            data: [],
+            lat: 0,
+            lng: 0
+        };
     }
 
     componentDidMount(){
+        
+        // Fetch all foodtruck data
         const db = getDatabase();
-        const starCountRef = ref(db, 'foodtrucks/');
-        onValue(starCountRef, (snapshot) => {
+        const foodTruckRef = ref(db, 'foodtrucks/');
+        onValue(foodTruckRef, (snapshot) => {
             const data = snapshot.val();
             this.setState({data});
-            console.log(this.state.data)
         });
+        
+        // If user is foodtruck owner, need to update `foodtrucks/${uid}`
+        
+    }
+    componentWillReceiveProps(nextProps){
+          // You don't have to do this check first, but it can help prevent an unneeded render
+        if (nextProps.coords.lat !== this.state.lat) {
+            this.setState({ lat: nextProps.coords.latitude });
+        }
+        if (nextProps.coords.lng !== this.state.lng) {
+            this.setState({ lng: nextProps.coords.longitude });
+        }
     }
 
     render() {
@@ -97,14 +114,13 @@ class Geolocator extends React.Component {
                 <Marker
                     lat={this.props.coords.latitude}
                     lng={this.props.coords.longitude}
-                    text="I'm here"
+                    text={`${this.state.lat}, ${this.state.lng}`}
                 />
 
                 {/* Example marker */}
                 {
                     this.state.data.map((v,k) => {
                         if (v === null) return null
-                        console.log(v)
                         return (
                             <FoodTruckMarker
                                 key={k}

@@ -39,24 +39,15 @@ export const SmallTitle = styled.div`
 
 export const ErrorHandler = ({errorMsg}) => {
     return(
-        <TextWrapper>
+        <ToggleButtonWrapper>
             <p className="text-red-500 font-bold">{errorMsg}</p>
-        </TextWrapper>
+        </ToggleButtonWrapper>
     )
 };
 
-export const ToggleText = ({text, onClick}) => {
-    return(
-        <TextWrapper>
-            <Text onClick={onClick} className="underline text-gray-700">{text}</Text>
-            <Text className="underline text-gray-700">Sample</Text>
-        </TextWrapper>
-    )
-}
-
 export const AppBar = ({uid, email, title}) => {
     return(
-        <header className="bg-blue-500 h-16 w-full text-gray-100 flex items-center justify-between">
+        <header className="bg-blue-500 fixed h-16 z-50 w-full text-gray-100 flex items-center justify-between">
             <div className="h-10 w-10">
             <FontAwesomeIcon icon="fa-solid fa-bars" />
             </div>
@@ -76,7 +67,7 @@ const UserProfile = ({uid, email}) => {
     )
 }
 
-const TextWrapper = styled.div`
+export const ToggleButtonWrapper = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -84,14 +75,14 @@ const TextWrapper = styled.div`
     margin-top: 1rem;
 `;
 
-const Text = styled.p`
+export const ToggleButton = styled.p`
     padding: 0;
     cursor: pointer;
 `;
 
 const LogOut = () => {
     return (
-        <button onClick={signOutCustom}>
+        <button className="mr-6" onClick={signOutCustom}>
             Logout
         </button>
     )
