@@ -80,6 +80,7 @@ class Geolocator extends React.Component {
             const data = snapshot.val();
             this.setState({data});
         });
+        console.log(this.props.coords);
         
         // If user is foodtruck owner, need to update `foodtrucks/${uid}`
         
