@@ -22,7 +22,11 @@ const LoadingContainer = ({children}) => {
             display: "flex",
             flexDirection: "column",
             justifyContents: "center",
-            alignItems: "center"
+            alignItems: "center",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -25%)"
         }}>
             {children}
         </div>
@@ -80,19 +84,9 @@ class Geolocator extends React.Component {
             const data = snapshot.val();
             this.setState({data});
         });
-        console.log(this.props.coords);
         
         // If user is foodtruck owner, need to update `foodtrucks/${uid}`
         
-    }
-    componentWillReceiveProps(nextProps){
-          // You don't have to do this check first, but it can help prevent an unneeded render
-        if (nextProps.coords.lat !== this.state.lat) {
-            this.setState({ lat: nextProps.coords.latitude });
-        }
-        if (nextProps.coords.lng !== this.state.lng) {
-            this.setState({ lng: nextProps.coords.longitude });
-        }
     }
 
     render() {
@@ -115,7 +109,7 @@ class Geolocator extends React.Component {
                 <Marker
                     lat={this.props.coords.latitude}
                     lng={this.props.coords.longitude}
-                    text={`${this.state.lat}, ${this.state.lng}`}
+                    text={"I'm Here"}
                 />
 
                 {/* Example marker */}
@@ -137,7 +131,7 @@ class Geolocator extends React.Component {
         ) : (
             <LoadingContainer>
                 <Loading
-                    color={'firebrick'}
+                    color={'#2196F3'}
                     stroke={'10px'}
                     size={'100px'}
                 />

@@ -45,7 +45,7 @@ export const signUpCustom = async(email, password, setErrorMsg) => {
               setErrorMsg(`${errorCode}: ${errorMessage}`);
               console.log(errorCode, errorMessage)
           });
-    console.log(userCredential)
+    // console.log(userCredential)
     // Do something with userCredential ...
 }
 export const signInCustom = async(email, password, setErrorMsg) => {
@@ -55,7 +55,7 @@ export const signInCustom = async(email, password, setErrorMsg) => {
             const errorMessage = error.message;
             setErrorMsg(`${errorCode}: ${errorMessage}`);
         });
-    console.log(userCredential)
+    // console.log(userCredential)
     // Do something with userCredential if you want to
 }
 export const signOutCustom = async() => {
