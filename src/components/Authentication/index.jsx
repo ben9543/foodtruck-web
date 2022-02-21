@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { signUpCustom, signInCustom, auth } from "../../firebase";
+import { auth } from "../../firebase";
 import { useSelector, useDispatch } from 'react-redux';
 import {
     signInUser,

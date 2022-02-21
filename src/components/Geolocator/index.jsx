@@ -1,8 +1,12 @@
 import React from "react";
-import { geolocated } from "react-geolocated";
 import GoogleMapReact from 'google-map-react';
-import Loading from "react-simple-loading";
+import { geolocated } from "react-geolocated";
 import { getDatabase, ref, onValue } from "firebase/database";
+import { writeFoodTruckData } from "../../firebase";
+import Loading from "react-simple-loading";
+import Observer from "./Observer";
+import Marker from "./Marker";
+import FoodTruckMarker from "./FoodTruckMarker";
 
 const config = {
     positionOptions: {
@@ -16,6 +20,7 @@ const config = {
     geolocationProvider: navigator.geolocation,
     isOptimisticGeolocationEnabled: true
 }
+
 const LoadingContainer = ({children}) => {
     return(
         <div style={{
@@ -29,38 +34,6 @@ const LoadingContainer = ({children}) => {
             transform: "translate(-50%, -25%)"
         }}>
             {children}
-        </div>
-    )
-}
-const Marker = ({lat, lng, text}) => {
-    return (
-        <div>
-            <div style={{border: "3px solid gray", borderRadius: "9999px", height: "20px", width: "20px"}}>
-                {text}
-            </div>
-            <details>
-                <summary>Show Coord</summary>
-                <div>
-                    <p>Lat: {lat}</p>
-                    <p>Lng: {lng}</p>
-                </div>
-            </details>
-        </div>
-    )
-}
-const FoodTruckMarker = ({lat, lng, text}) => {
-    return (
-        <div>
-            <div style={{border: "3px solid red", borderRadius: "9999px", height: "20px", width: "20px"}}>
-                {text}
-            </div>
-            <details>
-                <summary>Show Coord</summary>
-                <div>
-                    <p>Lat: {lat}</p>
-                    <p>Lng: {lng}</p>
-                </div>
-            </details>
         </div>
     )
 }
@@ -84,9 +57,7 @@ class Geolocator extends React.Component {
             const data = snapshot.val();
             this.setState({data});
         });
-        
         // If user is foodtruck owner, need to update `foodtrucks/${uid}`
-        
     }
 
     render() {
@@ -96,14 +67,23 @@ class Geolocator extends React.Component {
             <div>Geolocation is not enabled</div>
         ) : this.props.coords ? (
             <div style={{ height: '100vh', width: '100%', position: "relative"}}>
+                {
+                    // If user is foodtruck owner,
+                    <Observer 
+                        lat={this.props.coords.latitude} 
+                        lng={this.props.coords.longitude} 
+                        didUpdate={writeFoodTruckData}
+                        name={"Other food truck"}   // Replace with foodtruck name
+                        foodtruckId={"6"}           // Give unique uid
+                    />
+                }
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_APIKEY }}
                     defaultCenter={{
                         lat:this.props.coords.latitude, 
                         lng:this.props.coords.longitude
                     }}
-                    defaultZoom={15}
-                    >
+                    defaultZoom={15}>
                 
                 {/* User marker */}
                 <Marker
@@ -114,14 +94,14 @@ class Geolocator extends React.Component {
 
                 {/* Example marker */}
                 {
-                    this.state.data.map((v,k) => {
-                        if (v === null) return null
+                    Object.keys(this.state.data).map((v,k) => {
+                        if (this.state.data[v] === null) return null
                         return (
                             <FoodTruckMarker
                                 key={k}
-                                lat={v.lat}
-                                lng={v.lng}
-                                text={v.name}
+                                lat={this.state.data[v].lat}
+                                lng={this.state.data[v].lng}
+                                text={this.state.data[v].name}
                             />
                         );
                     })

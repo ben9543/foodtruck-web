@@ -2,7 +2,8 @@
 
 ## Things to do
 
-- [] AppBar: positioning
+- [X] AppBar: positioning
+- [] Finish Observer component
 - [] Google Map
   - [] How to regulate other location on the map
   - [] Fastest way from point to point

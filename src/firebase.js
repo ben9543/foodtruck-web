@@ -81,6 +81,18 @@ export const writeChatData = (message) => {
     message
   });
 }
+
+export const writeFoodTruckData = ({foodtruckId, lat, lng, name}) => {
+  const user = getCurrentUser();
+  if (true){ // Check if the user is foodtruck owner or not
+    set(ref(realtime_db, 'foodtrucks/' + foodtruckId), {
+      lat,
+      lng,
+      name
+    });
+  }
+}
+
 export const listenTo = (path, updateCallback) => {
   const allRef = ref(realtime_db, path);
   onValue(allRef, (snapshot) => {
