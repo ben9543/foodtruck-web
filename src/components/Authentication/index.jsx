@@ -13,8 +13,8 @@ import { AuthContainer, AppBar } from "./styles";
 
 export const SIGNIN = "Sign In";
 export const SIGNUP = "Sign Up";
-export const FOODTURCK = "Food Truck";
-export const USER = "User";
+export const FOODTURCK = "Food Truck 🚚";
+export const USER = "Customer 👩";
 
 const Authentication = () => {
 
@@ -41,7 +41,10 @@ const Authentication = () => {
                     />
                 :
                 <AuthContainer>
-                {
+                <div id="title" className="my-10">
+                    <h1 className="text-5xl">{mode}</h1>
+                </div>
+                { 
                     mode === FOODTURCK? 
                     <FoodTruckOwnerAuthPage setMode={setMode}/>
                         :

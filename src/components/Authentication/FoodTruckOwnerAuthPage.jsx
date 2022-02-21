@@ -1,7 +1,7 @@
 import React, {useState}from "react";
 import { signInCustom, signUpCustom } from "../../firebase";
-import { Form, Input, Button, SmallTitle, ErrorHandler, ToggleButtonWrapper, ToggleButton } from "./styles";
-import { FOODTURCK, USER, SIGNIN, SIGNUP } from "./index";
+import { Form, Input, Button, SmallTitle, ErrorHandler, ToggleButtonWrapper, ToggleButton, Divider, ModeToggleButton } from "./styles";
+import { USER, SIGNIN, SIGNUP } from "./index";
 
 const FoodTruckMOwnerAuthPage = ({setMode}) => {
     // React State
@@ -16,17 +16,26 @@ const FoodTruckMOwnerAuthPage = ({setMode}) => {
         if(authMode === SIGNIN)signInCustom(email, pass, setErrorMsg);
         else if(authMode === SIGNUP)signUpCustom(email, pass, setErrorMsg);
     }
-
-    return(
+    return (
+        <>
+        {
             (authMode === SIGNIN) ? 
-            <SignIn handleSubmit={handleSubmit} setAuthMode={setAuthMode} errorMsg={errorMsg} 
-                email={email} pass={pass} 
-                setEmail={setEmail} setPass={setPass}/>
+            <SignIn 
+                handleSubmit={handleSubmit}   
+                email={email} pass={pass} errorMsg={errorMsg} 
+                setEmail={setEmail} setPass={setPass} setAuthMode={setAuthMode} setErrorMsg={setErrorMsg}/>
                 :
-            <SignUp handleSubmit={handleSubmit} setAuthMode={setAuthMode} errorMsg={errorMsg} 
-                email={email} pass={pass} username={username}
-                setEmail={setEmail} setPass={setPass} setUsername={setUsername}/>
-    );
+            <SignUp 
+                handleSubmit={handleSubmit} 
+                email={email} pass={pass} username={username} errorMsg={errorMsg} 
+                setEmail={setEmail} setPass={setPass} setUsername={setUsername} setErrorMsg={setErrorMsg} setAuthMode={setAuthMode} />
+        }
+        <div style={{width:"25rem"}}>
+            <Divider/>
+        </div>
+        <ModeToggleButton className="border p-6 rounded-full w-full shadow bg-white" onClick={()=>setMode(USER)}>I'm Customer</ModeToggleButton>
+        </>
+    )
 };
 
 const SignIn = ({handleSubmit, setAuthMode, errorMsg, email, pass, setEmail, setPass}) => {

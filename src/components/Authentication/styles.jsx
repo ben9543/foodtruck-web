@@ -33,7 +33,7 @@ export const Button = styled.button`
 `;
 
 export const SmallTitle = styled.div`
-    font-size: 2rem;
+    font-size: 1.7rem;
     margin-bottom: 3rem;
 `;
 

@@ -1,7 +1,7 @@
 import React, {useState}from "react";
 import { signInCustom, signUpCustom } from "../../firebase";
 import { Form, Input, Button, SmallTitle, ErrorHandler, ToggleButtonWrapper, ModeToggleButton, ToggleButton, Divider } from "./styles";
-import { FOODTURCK, USER, SIGNIN, SIGNUP } from "./index";
+import { FOODTURCK, SIGNIN, SIGNUP } from "./index";
 
 const UserAuthPage = ({setMode}) => {
     
@@ -34,7 +34,7 @@ const UserAuthPage = ({setMode}) => {
         <div style={{width:"25rem"}}>
             <Divider/>
         </div>
-        <ModeToggleButton className="border p-6 rounded-full w-full shadow bg-white" onClick={()=>setMode(FOODTURCK)}>I'm FoodTruck Owner</ModeToggleButton>
+        <ModeToggleButton className="border p-6 rounded-full w-full shadow bg-white" onClick={()=>setMode(FOODTURCK)}>I run Food Truck Business</ModeToggleButton>
         </>
     )
 };
