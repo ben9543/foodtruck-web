@@ -41,8 +41,8 @@ const Authentication = () => {
                     />
                 :
                 <AuthContainer>
-                    <div id="title" className="my-10">
-                        <h1 className="text-5xl">{mode}</h1>
+                    <div id="title" className="my-5">
+                        <h1 className="text-4xl">{mode}</h1>
                     </div>
                 { 
                     mode === FOODTURCK? 

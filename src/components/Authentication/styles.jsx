@@ -44,7 +44,7 @@ export const Button = styled.button`
 
 export const SmallTitle = styled.div`
     font-size: 1.7rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 `;
 
 export const ErrorHandler = ({errorMsg}) => {
@@ -61,7 +61,7 @@ export const AppBar = ({uid, email, title}) => {
             <div className="h-10 w-10">
             <FontAwesomeIcon icon="fa-solid fa-bars" />
             </div>
-            <p className="text-2xl text-center">{title}</p>
+            <p className="text-xl text-center">{title}</p>
             <div>
                 <UserProfile uid={uid} email={email}/>
             </div>
