@@ -11,13 +11,23 @@ export const AuthContainer = styled.div`
     width: 100%;
 `;
 
+export const FormWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 25rem;
+    width: 85%;
+`;
+
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: auto;
-    width: 25rem;
+    width:100%;
 `;
 
 export const Input = styled.input`
@@ -82,7 +92,7 @@ export const ToggleButton = styled.p`
 
 export const ModeToggleButton = styled.button`
     font-weight: 700;
-    width: 25rem;
+    width: 100%;
 `;
 
 export const Divider = styled.div`

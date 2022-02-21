@@ -1,6 +1,6 @@
 import React, {useState}from "react";
 import { signInCustom, signUpCustom } from "../../firebase";
-import { Form, Input, Button, SmallTitle, ErrorHandler, ToggleButtonWrapper, ModeToggleButton, ToggleButton, Divider } from "./styles";
+import { Form, Input, Button, SmallTitle, ErrorHandler, ToggleButtonWrapper, ModeToggleButton, ToggleButton, Divider, FormWrapper } from "./styles";
 import { FOODTURCK, SIGNIN, SIGNUP } from "./index";
 
 const UserAuthPage = ({setMode}) => {
@@ -18,24 +18,22 @@ const UserAuthPage = ({setMode}) => {
         else if(authMode === SIGNUP)signUpCustom(email, pass, setErrorMsg);
     }
     return (
-        <>
-        {
-            (authMode === SIGNIN) ? 
-            <SignIn 
-                handleSubmit={handleSubmit}   
-                email={email} pass={pass} errorMsg={errorMsg} 
-                setEmail={setEmail} setPass={setPass} setAuthMode={setAuthMode} setErrorMsg={setErrorMsg}/>
-                :
-            <SignUp 
-                handleSubmit={handleSubmit} 
-                email={email} pass={pass} username={username} errorMsg={errorMsg} 
-                setEmail={setEmail} setPass={setPass} setUsername={setUsername} setErrorMsg={setErrorMsg} setAuthMode={setAuthMode} />
-        }
-        <div style={{width:"25rem"}}>
+        <FormWrapper>
+            {
+                (authMode === SIGNIN) ? 
+                <SignIn 
+                    handleSubmit={handleSubmit}   
+                    email={email} pass={pass} errorMsg={errorMsg} 
+                    setEmail={setEmail} setPass={setPass} setAuthMode={setAuthMode} setErrorMsg={setErrorMsg}/>
+                    :
+                <SignUp 
+                    handleSubmit={handleSubmit} 
+                    email={email} pass={pass} username={username} errorMsg={errorMsg} 
+                    setEmail={setEmail} setPass={setPass} setUsername={setUsername} setErrorMsg={setErrorMsg} setAuthMode={setAuthMode} />
+            }
             <Divider/>
-        </div>
-        <ModeToggleButton className="border p-6 rounded-full w-full shadow bg-white" onClick={()=>setMode(FOODTURCK)}>I run Food Truck Business</ModeToggleButton>
-        </>
+            <ModeToggleButton className="border p-6 rounded-full w-full shadow bg-white" onClick={()=>setMode(FOODTURCK)}>I run Food Truck Business</ModeToggleButton>
+        </FormWrapper>
     )
 };
 
