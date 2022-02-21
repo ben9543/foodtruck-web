@@ -38,7 +38,7 @@ export const getChats = async() => {
 // Email and Password Authentication
 export const auth = getAuth();
 export const signUpCustom = async(email, password, setErrorMsg) => {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+    await createUserWithEmailAndPassword(auth, email, password)
           .catch((error) => {
               const errorCode = error.code;
               const errorMessage = error.message;
@@ -49,7 +49,7 @@ export const signUpCustom = async(email, password, setErrorMsg) => {
     // Do something with userCredential ...
 }
 export const signInCustom = async(email, password, setErrorMsg) => {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
