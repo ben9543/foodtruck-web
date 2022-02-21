@@ -17,7 +17,7 @@ export const Form = styled.form`
     justify-content: center;
     align-items: center;
     height: auto;
-    width: 20rem;
+    width: 25rem;
 `;
 
 export const Input = styled.input`
@@ -78,6 +78,18 @@ export const ToggleButtonWrapper = styled.div`
 export const ToggleButton = styled.p`
     padding: 0;
     cursor: pointer;
+`;
+
+export const ModeToggleButton = styled.button`
+    font-weight: 700;
+    width: 25rem;
+`;
+
+export const Divider = styled.div`
+    width: 100%;
+    border-top: 1px solid gray;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 `;
 
 const LogOut = () => {
