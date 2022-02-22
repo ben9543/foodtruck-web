@@ -5,7 +5,8 @@ import {
   getAuth, 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
-  signOut} from "firebase/auth";
+  signOut
+} from "firebase/auth";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -22,8 +23,6 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
-console.log(process.env)
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
@@ -39,13 +38,13 @@ export const getChats = async() => {
 export const auth = getAuth();
 export const signUpCustom = async(email, password, setErrorMsg) => {
     await createUserWithEmailAndPassword(auth, email, password)
-          .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              setErrorMsg(`${errorCode}: ${errorMessage}`);
-              console.log(errorCode, errorMessage)
-          });
-    // console.log(userCredential)
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setErrorMsg(`${errorCode}: ${errorMessage}`);
+            // console.log(errorCode, errorMessage)
+        });
+    // console.log();
     // Do something with userCredential ...
 }
 export const signInCustom = async(email, password, setErrorMsg) => {
@@ -55,7 +54,7 @@ export const signInCustom = async(email, password, setErrorMsg) => {
             const errorMessage = error.message;
             setErrorMsg(`${errorCode}: ${errorMessage}`);
         });
-    // console.log(userCredential)
+    // console.log(UC)
     // Do something with userCredential if you want to
 }
 export const signOutCustom = async() => {
@@ -73,12 +72,6 @@ export const writeUserData = (name, email, imageUrl) => {
     username: name,
     email: email,
     profile_picture : imageUrl
-  });
-}
-export const writeChatData = (message) => {
-  const newChatRef = push(ref(realtime_db, 'chats/'));
-  set(newChatRef, {
-    message
   });
 }
 

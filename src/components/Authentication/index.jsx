@@ -8,7 +8,6 @@ import {
 } from "../../redux/slices/userSlice";
 import FoodTruckOwnerAuthPage from "./FoodTruckOwnerAuthPage";
 import UserAuthPage from "./UserAuthPage";
-// Styles
 import { AuthContainer, AppBar } from "./styles";
 
 export const SIGNIN = "Sign In";
