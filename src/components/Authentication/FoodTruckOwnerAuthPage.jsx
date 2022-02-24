@@ -1,6 +1,6 @@
 import React, {useState}from "react";
 import { signInCustom, signUpCustom } from "../../firebase";
-import { Form, Input, Button, SmallTitle, ErrorHandler, ToggleButtonWrapper, ToggleButton, Divider, ModeToggleButton } from "./styles";
+import { Form, Input, Button, SmallTitle, ErrorHandler, ToggleButtonWrapper, ToggleButton, Divider, ModeToggleButton, FormWrapper } from "./styles";
 import { USER, SIGNIN, SIGNUP } from "./index";
 
 const FoodTruckMOwnerAuthPage = ({setMode}) => {
@@ -17,7 +17,7 @@ const FoodTruckMOwnerAuthPage = ({setMode}) => {
         else if(authMode === SIGNUP)signUpCustom(email, pass, setErrorMsg);
     }
     return (
-        <>
+        <FormWrapper>
         {
             (authMode === SIGNIN) ? 
             <SignIn 
@@ -34,7 +34,7 @@ const FoodTruckMOwnerAuthPage = ({setMode}) => {
             <Divider/>
         </div>
         <ModeToggleButton className="border p-6 rounded-full w-full shadow bg-white" onClick={()=>setMode(USER)}>I'm Customer</ModeToggleButton>
-        </>
+        </FormWrapper>
     )
 };
 

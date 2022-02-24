@@ -7,7 +7,7 @@ import {
   signInWithEmailAndPassword, 
   signOut
 } from "firebase/auth";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { collection, query, doc, setDoc, getDoc, getDocs, getFirestore  } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -26,13 +26,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// FireStore
-const db = getFirestore(app);
-export const getChats = async() => {
-    const chatSnapShots = await getDocs(collection(db, "chats"));
-    const chatLists = chatSnapShots.docs.map(doc => doc.data());
-    return chatLists;
-}
 
 // Email and Password Authentication
 export const auth = getAuth();
@@ -47,14 +40,17 @@ export const signUpCustom = async(email, password, setErrorMsg) => {
     // console.log();
     // Do something with userCredential ...
 }
-export const signInCustom = async(email, password, setErrorMsg) => {
-    await signInWithEmailAndPassword(auth, email, password)
+export const signInCustom = async(email, password, setErrorMsg, uid) => {
+    const UC = await signInWithEmailAndPassword(auth, email, password)
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             setErrorMsg(`${errorCode}: ${errorMessage}`);
         });
-    // console.log(UC)
+    if (UC){
+      if (UC.user.uid == uid)
+        console.log("The user is Foodtruck")
+    }
     // Do something with userCredential if you want to
 }
 export const signOutCustom = async() => {
@@ -92,4 +88,44 @@ export const listenTo = (path, updateCallback) => {
     const data = snapshot.val();
     updateCallback(data);
   });
+}
+
+// FireStore
+const db = getFirestore(app);
+export const getFoodtrucks = async() => {
+  const q = query(collection(db, "foodtrucks"));
+  const querySnapshot = await getDocs(q);
+  /*querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+  });*/
+  return querySnapshot;
+}
+export const getFoodtruck = async() => {
+  // ...
+}
+export const isFoodtruck = async({auth_id}) => {
+  // Add a new document in collection "cities"
+  const docRef = doc(db, "foodtrucks", auth_id);
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists();
+}
+
+export const setFoodtrucks = async({uid}) => {
+  await setDoc(doc(db, "foodtrucks", uid), {
+    name: "Los Angeles",
+    state: "CA",
+    country: "USA"
+  });
+}
+
+export const signUpCustomFoodtruck = async(email, password, setErrorMsg) => {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMsg(`${errorCode}: ${errorMessage}`);
+          // console.log(errorCode, errorMessage)
+      });
+  // set userCredential.uid to firestore
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, isFoodtruck } from "../../firebase";
 import { useSelector, useDispatch } from 'react-redux';
 import {
     signInUser,
@@ -20,8 +20,13 @@ const Authentication = () => {
     // Redux State
     const userState = useSelector((state) => state.user);
     const dispatch = useDispatch();
-    onAuthStateChanged(auth, (user) => {
-        if (user) dispatch(signInUser({uid:user.uid, email: user.email}));
+    onAuthStateChanged(auth, async(user) => {
+        if (user) {
+            if(await isFoodtruck({auth_id: user.uid})){
+                console.log("Foodtruck owner")
+            }
+            dispatch(signInUser({uid:user.uid, email: user.email}));
+        }
         else dispatch(signOutUser());
     });
 
