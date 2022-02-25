@@ -5,7 +5,8 @@ export const errorSlice = createSlice({
     name: 'error',
     initialState: {
         errorCode: null,
-        errorMessage: null
+        errorMessage: null,
+        errorCounter: 0
     },
     reducers: {
         setError: setErrorReducer,

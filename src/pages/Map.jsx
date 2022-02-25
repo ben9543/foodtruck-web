@@ -13,8 +13,8 @@ const Map = () => {
         dispatch(setLoading());
         await signOut(auth);
         dispatch(signOutUser());
-        dispatch(endLoading());
         dispatch(removeError());
+        dispatch(endLoading());
     }
     const handleError = ({message}) => {
         dispatch(setError({errorCode: "smth bad", errorMessage:message}));
@@ -22,7 +22,6 @@ const Map = () => {
     return (
         <>
         <div>MAP</div>
-        <button onClick={()=>handleError({message:"Ben"})}>Ben</button>
         <button onClick={userSignOut}>Logout</button>
         </>
     )

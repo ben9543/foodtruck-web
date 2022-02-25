@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Auth from "./pages/Auth";
 import Map from "./pages/Map";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { signInUser, signOutUser } from "./redux/slices/userSlice";
-import { setError } from "./redux/slices/errorSlice";
-import { setLoading, endLoading, toggleLoading } from "./redux/slices/loadingSlice";
+import { signInUser } from "./redux/slices/userSlice";
+// import { setError } from "./redux/slices/errorSlice";
+import { setLoading, endLoading } from "./redux/slices/loadingSlice";
 
 // Libraries
 import { ToastContainer, toast } from 'react-toastify';
@@ -21,13 +21,11 @@ function App() {
   const loading = useSelector((state) => state.loading);
   const auth = getAuth();
   const dispatch = useDispatch();
-  const userState = useSelector((state) => state.user);
-  const errorState = useSelector((state) => state.error);
   
   // Handle toastify updates
   useEffect(() => {
     if(error.errorCode)
-      toast.error(`Auth Error: ${error.errorMessage}`);
+      toast.error(`${error.errorCode}: ${error.errorMessage}`);
   }, [error]);
   useEffect(() => {
     if(user.loggedIn){
@@ -53,9 +51,9 @@ function App() {
   if (loading.loading) return <Loading/>
   return (
     <div className="App text-gray-800">
-      {JSON.stringify(userState)}
+      {JSON.stringify(user)}
       <br/>
-      {JSON.stringify(errorState)}
+      {JSON.stringify(error)}
       <p>{JSON.stringify(loading)}</p>
       {
         !user.loggedIn ?
