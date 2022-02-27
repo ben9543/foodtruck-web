@@ -53,10 +53,10 @@ const SignIn = ({toggle, setToggle}) => {
         <Toggle handleToggle={handleToggle} toggleBtnText={"Sign In"} toggleDescriptionText={"Already have an account?"}/>
         {
             (mode === FOODTURCK)?
-            <Toggle handleToggle={()=>setMode(USER)} toggleBtnText={"User sign up"} toggleDescriptionText={"Start as a normal user?"}/>
+            <button onClick={()=>setMode(USER)} className="hover:bg-blue-500 rounded-full w-full border border-blue-600 px-10 py-4 text-xl mb-4">I am just user</button>
                 :
             (mode === USER)?
-            <Toggle handleToggle={()=>setMode(FOODTURCK)} toggleBtnText={"Foodtruck sign up"} toggleDescriptionText={"Do you run foodtruck business?"}/>
+            <button onClick={()=>setMode(FOODTURCK)} className="hover:bg-green-500 rounded-full w-full border border-green-600 px-10 py-4 text-xl mb-4">I run foodtruck business</button>
             :
             null
         }
