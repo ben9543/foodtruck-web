@@ -48,7 +48,7 @@ export const signInCustom = async(email, password, setErrorMsg, uid) => {
             setErrorMsg(`${errorCode}: ${errorMessage}`);
         });
     if (UC){
-      if (UC.user.uid == uid)
+      if (UC.user.uid === uid)
         console.log("The user is Foodtruck")
     }
     // Do something with userCredential if you want to

@@ -1,9 +1,9 @@
 import React from "react";
 import { getAuth, signOut } from "firebase/auth"
 import { useDispatch } from 'react-redux';
-import { setLoading, endLoading } from "../redux/slices/loadingSlice";
-import { signOutUser } from "../redux/slices/userSlice";
-import { setError, removeError } from "../redux/slices/errorSlice";
+import { setLoading, endLoading } from "../../redux/slices/loadingSlice";
+import { signOutUser } from "../../redux/slices/userSlice";
+import { setError, removeError } from "../../redux/slices/errorSlice";
 
 const auth = getAuth();
 

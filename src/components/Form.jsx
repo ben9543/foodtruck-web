@@ -16,7 +16,8 @@ const Container = styled.form`
         width: 100%;
         border-radius: 9999px;
         border: 1px black solid;
-        margin-bottom: 1rem;
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
     }
 `;
 
