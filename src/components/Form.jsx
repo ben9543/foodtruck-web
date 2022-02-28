@@ -8,6 +8,12 @@ const Container = styled.form`
         width: 100%;
         margin-bottom: 1rem;
     }
+    textarea{
+        border: 1px black solid;
+        height: 8rem;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
     input:focus{
         outline: none !important;
     }
@@ -21,9 +27,9 @@ const Container = styled.form`
     }
 `;
 
-const Form = ({children}) => {
+const Form = ({children ,onSubmit}) => {
     return (
-        <Container className="w-full flex flex-col justify-center items-center">
+        <Container onSubmit={onSubmit} className="w-full flex flex-col justify-center items-center">
             {children}
         </Container>
     );

@@ -5,13 +5,14 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { signInUser } from "./redux/slices/userSlice";
+import { signInFoodTruck, signInUser } from "./redux/slices/userSlice";
 // import { setError } from "./redux/slices/errorSlice";
 import { setLoading, endLoading } from "./redux/slices/loadingSlice";
 
 // Libraries
 import { ToastContainer, toast } from 'react-toastify';
 import Loading from "react-simple-loading";
+import { isFoodtruck } from "./firebase";
 
 let authFlag = true;
 
@@ -34,12 +35,15 @@ function App() {
   }, [user]);
 
   
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async(user) => {
     if(authFlag){
       authFlag = false;
       dispatch(setLoading());
       if (user) {
-        dispatch(signInUser({uid:user.uid, email: user.email}));
+        if (await isFoodtruck(user.uid))
+          dispatch(signInFoodTruck({uid:user.uid, email: user.email}));
+        else
+          dispatch(signInUser({uid:user.uid, email: user.email}));
         dispatch(endLoading());
       } else if (user == null) {
         dispatch(endLoading());

@@ -1,30 +1,17 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { setLoading, endLoading } from "../../../redux/slices/loadingSlice";
-import { signInUser } from "../../../redux/slices/userSlice";
-import { setError } from "../../../redux/slices/errorSlice";
 import Divider from "../../../components/Divider";
 import { 
-    SIGNIN,
-    SIGNUP,
     FOODTURCK,
     USER,
 } from "../index";
 import Card from "../../../components/Card";
-import Form from "../../../components/Form";
 import Toggle from "../Toggle";
 import FoodTruckSignUp from "./FoodTruckSignUp";
 import UserSignUp from "./UserSignUp";
 
-const auth = getAuth();
-
 const SignIn = ({toggle, setToggle}) => {
-    const dispatch = useDispatch();
 
     // React State
-    const [email, setEmail] = useState("");
-    const [pass, setPass] = useState("");
     const [mode, setMode] = useState(null);
 
     const handleToggle = () =>{

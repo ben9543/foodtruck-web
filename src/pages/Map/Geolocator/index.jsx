@@ -1,8 +1,8 @@
 import React from "react";
 import GoogleMapReact from 'google-map-react';
 import { geolocated } from "react-geolocated";
-import { getDatabase, ref, onValue } from "firebase/database";
-import { writeFoodTruckData } from "../../firebase";
+import { getDatabase, ref, set, onValue } from "firebase/database";
+import { realtime_db } from "../../../firebase";
 import Loading from "react-simple-loading";
 import Observer from "./Observer";
 import Marker from "./Marker";
@@ -19,6 +19,14 @@ const config = {
     suppressLocationOnMount: false,
     geolocationProvider: navigator.geolocation,
     isOptimisticGeolocationEnabled: true
+}
+
+const writeFoodTruckData = ({foodtruckId, lat, lng, name}) => {// Check if the user is foodtruck owner or not
+    set(ref(realtime_db, 'foodtrucks/' + foodtruckId), {
+        lat,
+        lng,
+        name
+    });
 }
 
 const LoadingContainer = ({children}) => {
@@ -69,13 +77,14 @@ class Geolocator extends React.Component {
             <div style={{ height: '100vh', width: '100%', position: "relative"}}>
                 {
                     // If user is foodtruck owner,
+                    this.props.foodTruck?
                     <Observer 
                         lat={this.props.coords.latitude} 
                         lng={this.props.coords.longitude} 
                         didUpdate={writeFoodTruckData}
-                        name={"Other food truck"}   // Replace with foodtruck name
-                        foodtruckId={"6"}           // Give unique uid
-                    />
+                        name={"Example"}   // Replace with foodtruck name
+                        foodtruckId={this.props.uid}      // Give unique uid
+                    />:null
                 }
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_APIKEY }}
@@ -86,14 +95,18 @@ class Geolocator extends React.Component {
                     defaultZoom={15}>
                 
                 {/* User marker */}
-                <Marker
-                    lat={this.props.coords.latitude}
-                    lng={this.props.coords.longitude}
-                    text={"I'm Here"}
-                />
+                {
+                    !this.props.foodTruck?
+                    <Marker
+                        lat={this.props.coords.latitude}
+                        lng={this.props.coords.longitude}
+                        text={"I'm Here"}
+                    />:null
+                }
 
                 {/* Example marker */}
                 {
+                    this.state.data? 
                     Object.keys(this.state.data).map((v,k) => {
                         if (this.state.data[v] === null) return null
                         return (
@@ -104,7 +117,7 @@ class Geolocator extends React.Component {
                                 text={this.state.data[v].name}
                             />
                         );
-                    })
+                    }) : null
                 }
                 </GoogleMapReact>
             </div>

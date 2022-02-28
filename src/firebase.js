@@ -61,7 +61,7 @@ export const signOutCustom = async() => {
 export const getCurrentUser = () => auth.currentUser;
 
 // Realtime Database
-const realtime_db = getDatabase(app);
+export const realtime_db = getDatabase(app);
 export const writeUserData = (name, email, imageUrl) => {
   const newUserRef = ref(realtime_db, 'users/');
   set(newUserRef, {
@@ -91,7 +91,7 @@ export const listenTo = (path, updateCallback) => {
 }
 
 // FireStore
-const db = getFirestore(app);
+export const db = getFirestore(app);
 export const getFoodtrucks = async() => {
   const q = query(collection(db, "foodtrucks"));
   const querySnapshot = await getDocs(q);
@@ -104,28 +104,31 @@ export const getFoodtrucks = async() => {
 export const getFoodtruck = async() => {
   // ...
 }
-export const isFoodtruck = async({auth_id}) => {
+export const isFoodtruck = async(authId) => {
   // Add a new document in collection "cities"
-  const docRef = doc(db, "foodtrucks", auth_id);
+  const docRef = doc(db, "foodtrucks", authId);
   const docSnap = await getDoc(docRef);
   return docSnap.exists();
 }
 
-export const setFoodtrucks = async({uid}) => {
+/*  
+    - [X] name
+    - [] info
+    - [] close at
+    - [] like
+    - [] rating */
+
+export const setFoodtrucks = async(uid, {name, closeAt, description}) => {
   await setDoc(doc(db, "foodtrucks", uid), {
-    name: "Los Angeles",
-    state: "CA",
-    country: "USA"
-  });
+    name, closeAt, description
+  }).catch(err => err);
 }
 
-export const signUpCustomFoodtruck = async(email, password, setErrorMsg) => {
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-      .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMsg(`${errorCode}: ${errorMessage}`);
-          // console.log(errorCode, errorMessage)
-      });
-  // set userCredential.uid to firestore
+export const signUpCustomFoodtruck = async(email, password, option) => {
+  createUserWithEmailAndPassword(auth, email, password)
+      .then((user) => {
+        //setFoodtrucks(user.uid, option);
+        return user;
+      })
+      .catch(err => err);
 }
