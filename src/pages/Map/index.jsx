@@ -1,5 +1,6 @@
 import React from "react";
-import { getAuth, signOut } from "firebase/auth"
+import { getAuth, signOut } from "firebase/auth";
+import { getDatabase, ref, remove } from "firebase/database";
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, endLoading } from "../../redux/slices/loadingSlice";
 import { signOutUser } from "../../redux/slices/userSlice";
@@ -10,10 +11,14 @@ const auth = getAuth();
 
 const Map = () => {
     const dispatch = useDispatch();
+    const db = getDatabase();
     const user = useSelector((state) => state.user);
+    const foodTruckRef = ref(db, 'foodtrucks/' + user.uid);
+
     const userSignOut = async() => {
         dispatch(setLoading());
         await signOut(auth);
+        await remove(foodTruckRef);
         dispatch(signOutUser());
         dispatch(removeError());
         dispatch(endLoading());
@@ -23,8 +28,8 @@ const Map = () => {
     }
     return (
         <>
-        <Geolocator foodTruck={user.foodTruck} uid={user.uid}/>
         <button onClick={userSignOut}>Logout</button>
+        <Geolocator foodTruck={user.foodTruck} uid={user.uid}/>
         </>
     )
 }
