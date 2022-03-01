@@ -21,11 +21,9 @@ const config = {
     isOptimisticGeolocationEnabled: true
 }
 
-const writeFoodTruckData = ({foodtruckId, lat, lng, name}) => {// Check if the user is foodtruck owner or not
+const writeFoodTruckData = ({foodtruckId, lat, lng, truckName, closeAt}) => {
     set(ref(realtime_db, 'foodtrucks/' + foodtruckId), {
-        lat,
-        lng,
-        name
+        lat, lng, truckName, closeAt
     });
 }
 
@@ -84,7 +82,8 @@ class Geolocator extends React.Component {
                         lng={this.props.coords.longitude} 
                         didUpdate={writeFoodTruckData}
                         truckName={this.props.truckName}                // Replace with foodtruck name
-                        foodtruckId={this.props.uid}    // Give unique uid
+                        foodtruckId={this.props.uid}       // Give unique uid
+                        closeAt={this.props.closeAt}
                     />:null
                 }
                 <GoogleMapReact
