@@ -1,8 +1,8 @@
 import React from "react";
 const FoodTruckMarker = ({lat, lng, text}) => {
     return (
-        <div>
-            <div style={{border: "3px solid red", borderRadius: "9999px", height: "20px", width: "20px"}}>
+        <div className="bg-red-500 rounded-full h-3 w-3">
+            <div>
                 {text}
             </div>
             <details>

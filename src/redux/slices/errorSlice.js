@@ -1,18 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { setErrorMsgReducer } from "./reducers/errorReducer";
+
+import {setErrorReducer,removeErrorReducer } from "./reducers/errorReducers";
 
 export const errorSlice = createSlice({
     name: 'error',
     initialState: {
-        code: null,
-        message: ""
+        errorCode: null,
+        errorMessage: null,
+        errorCounter: 0
     },
     reducers: {
-        setErrorMsg:setErrorMsgReducer
+        setError: setErrorReducer,
+        removeError: removeErrorReducer
     },
   })
   
   // Action creators are generated for each case reducer function
-export const { setErrorMsg } = errorSlice.actions;
-  
+export const { setError, removeError } = errorSlice.actions;
 export default errorSlice.reducer;

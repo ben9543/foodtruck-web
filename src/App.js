@@ -1,18 +1,71 @@
-import Authentication from './components/Authentication';
-import Geolocator from './components/Geolocator';
-import { useSelector } from 'react-redux';
+import { useEffect } from "react";
+import Auth from "./pages/Auth";
+import Map from "./pages/Map";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { signInFoodTruck, signInUser, signOutUser } from "./redux/slices/userSlice";
+import { setLoading, endLoading } from "./redux/slices/loadingSlice";
+
+// Libraries
+import { ToastContainer, toast } from 'react-toastify';
+import Loading from "react-simple-loading";
+import { getFoodtruck, isFoodtruck } from "./firebase";
+
+let authFlag = true;
 
 function App() {
   const user = useSelector((state) => state.user);
+  const error = useSelector((state) => state.error);
+  const loading = useSelector((state) => state.loading);
+  const auth = getAuth();
+  const dispatch = useDispatch();
+  
+  // Handle toastify updates
+  useEffect(() => {
+    if(error.errorCode)
+      toast.error(`${error.errorCode}: ${error.errorMessage}`);
+  }, [error]);
+  useEffect(() => {
+    if(user.loggedIn){
+      toast.success("Logged In");
+    }
+  }, [user]);
+
+  // Authflag needed because onAuthStateChanged get triggered twice
+  onAuthStateChanged(auth, async(user) => {
+    if(authFlag){
+      authFlag = false;
+      dispatch(setLoading());
+      if (user) {
+        const ft = await getFoodtruck(user.uid);
+        if (ft){
+          dispatch(signInFoodTruck({uid:user.uid, email: user.email, truckName: ft.truckName, closeAt: ft.closeAt}));
+        }else{
+          dispatch(signInUser({uid:user.uid, email: user.email}));
+        }
+        dispatch(endLoading());
+      } else if (user === null) {
+        dispatch(signOutUser());
+        dispatch(endLoading());
+      }
+    } // authFlag ends
+  });
+
+  // Loading component
+  if (loading.loading) return <Loading/>
   return (
     <div className="App text-gray-800">
-      <Authentication />
       {
-        user.loggedIn ? 
-        <Geolocator/>
-          :
-        null
+        !user.loggedIn ?
+          <Auth/>
+            :
+          <Map/>
       }
+      <ToastContainer 
+        position="bottom-right"
+      />
     </div>
   );
 }

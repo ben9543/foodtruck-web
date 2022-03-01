@@ -1,8 +1,8 @@
 import React from "react";
 import GoogleMapReact from 'google-map-react';
 import { geolocated } from "react-geolocated";
-import { getDatabase, ref, onValue } from "firebase/database";
-import { writeFoodTruckData } from "../../firebase";
+import { getDatabase, ref, set, onValue } from "firebase/database";
+import { realtime_db } from "../../../firebase";
 import Loading from "react-simple-loading";
 import Observer from "./Observer";
 import Marker from "./Marker";
@@ -19,6 +19,12 @@ const config = {
     suppressLocationOnMount: false,
     geolocationProvider: navigator.geolocation,
     isOptimisticGeolocationEnabled: true
+}
+
+const writeFoodTruckData = ({foodtruckId, lat, lng, truckName, closeAt}) => {
+    set(ref(realtime_db, 'foodtrucks/' + foodtruckId), {
+        lat, lng, truckName, closeAt
+    });
 }
 
 const LoadingContainer = ({children}) => {
@@ -49,6 +55,7 @@ class Geolocator extends React.Component {
     }
 
     componentDidMount(){
+        console.log("Geolocator props: ", this.props)
         
         // Fetch all foodtruck data
         const db = getDatabase();
@@ -69,13 +76,15 @@ class Geolocator extends React.Component {
             <div style={{ height: '100vh', width: '100%', position: "relative"}}>
                 {
                     // If user is foodtruck owner,
+                    this.props.foodTruck?
                     <Observer 
                         lat={this.props.coords.latitude} 
                         lng={this.props.coords.longitude} 
                         didUpdate={writeFoodTruckData}
-                        name={"Other food truck"}   // Replace with foodtruck name
-                        foodtruckId={"6"}           // Give unique uid
-                    />
+                        truckName={this.props.truckName}                // Replace with foodtruck name
+                        foodtruckId={this.props.uid}       // Give unique uid
+                        closeAt={this.props.closeAt}
+                    />:null
                 }
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_APIKEY }}
@@ -86,25 +95,38 @@ class Geolocator extends React.Component {
                     defaultZoom={15}>
                 
                 {/* User marker */}
-                <Marker
-                    lat={this.props.coords.latitude}
-                    lng={this.props.coords.longitude}
-                    text={"I'm Here"}
-                />
+                {
+                    this.props.foodTruck?
+                    <FoodTruckMarker
+                        lat={this.props.coords.latitude}
+                        lng={this.props.coords.longitude}
+                        text={"Foodtruck owner mark"}
+                    />
+                        :
+                    <Marker
+                        lat={this.props.coords.latitude}
+                        lng={this.props.coords.longitude}
+                        text={"I'm Here"}
+                    />
+                }
 
                 {/* Example marker */}
                 {
+                    this.state.data? 
                     Object.keys(this.state.data).map((v,k) => {
-                        if (this.state.data[v] === null) return null
+                        if (this.state.data[v] === null) return null;
+                        if (this.props.uid === v) return null;
                         return (
                             <FoodTruckMarker
                                 key={k}
                                 lat={this.state.data[v].lat}
                                 lng={this.state.data[v].lng}
-                                text={this.state.data[v].name}
+                                text={this.state.data[v].truckName}
+                                // info={this.state.data[v].info}
+                                closeAt={this.state.data[v].closeAt}
                             />
                         );
-                    })
+                    }) : null
                 }
                 </GoogleMapReact>
             </div>

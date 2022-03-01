@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, push, onValue } from "firebase/database";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 import { 
   getAuth, 
   createUserWithEmailAndPassword, 
@@ -48,7 +48,7 @@ export const signInCustom = async(email, password, setErrorMsg, uid) => {
             setErrorMsg(`${errorCode}: ${errorMessage}`);
         });
     if (UC){
-      if (UC.user.uid == uid)
+      if (UC.user.uid === uid)
         console.log("The user is Foodtruck")
     }
     // Do something with userCredential if you want to
@@ -61,7 +61,7 @@ export const signOutCustom = async() => {
 export const getCurrentUser = () => auth.currentUser;
 
 // Realtime Database
-const realtime_db = getDatabase(app);
+export const realtime_db = getDatabase(app);
 export const writeUserData = (name, email, imageUrl) => {
   const newUserRef = ref(realtime_db, 'users/');
   set(newUserRef, {
@@ -91,7 +91,7 @@ export const listenTo = (path, updateCallback) => {
 }
 
 // FireStore
-const db = getFirestore(app);
+export const db = getFirestore(app);
 export const getFoodtrucks = async() => {
   const q = query(collection(db, "foodtrucks"));
   const querySnapshot = await getDocs(q);
@@ -101,30 +101,34 @@ export const getFoodtrucks = async() => {
   });*/
   return querySnapshot;
 }
-export const getFoodtruck = async() => {
-  // ...
-}
-export const isFoodtruck = async(auth_id) => {
+export const getFoodtruck = async(authId) => {
   // Add a new document in collection "cities"
-  const docRef = doc(db, "foodtrucks", auth_id);
+  const docRef = doc(db, "foodtrucks", authId);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()){
+    return docSnap.data();
+  }else{
+    return null;
+  }
+}
+export const isFoodtruck = async(authId) => {
+  // Add a new document in collection "cities"
+  const docRef = doc(db, "foodtrucks", authId);
   const docSnap = await getDoc(docRef);
   return docSnap.exists();
 }
 
-/*
-  ** FoodTruck DB model **
-  - [] title 
-  - [] username
-  - [] description
-  - [] likes
-  - [] rating
-  - [] thumbnail
-*/
+/*  
+    - [X] name
+    - [] info
+    - [] close at
+    - [] like
+    - [] rating */
 
-export const setFoodtrucks = async({uid, title, username, description, likes, rating, thumbnail}) => {
+export const setFoodtrucks = async(uid, {name, closeAt, description}) => {
   await setDoc(doc(db, "foodtrucks", uid), {
-    title, username, description, likes, rating, thumbnail
-  });
+    name, closeAt, description
+  }).catch(err => err);
 }
 export const signInCustomFoodtruck = async(email, password, dispatch, setErrorMsg) => {
     await signInWithEmailAndPassword(auth, email, password)
@@ -142,13 +146,11 @@ export const signInCustomFoodtruck = async(email, password, dispatch, setErrorMs
     // Do something with userCredential if you want to
 }
 
-export const signUpCustomFoodtruck = async(email, password, setErrorMsg) => {
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-      .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMsg(`${errorCode}: ${errorMessage}`);
-          // console.log(errorCode, errorMessage)
-      });
-  // set userCredential.uid to firestore
+export const signUpCustomFoodtruck = async(email, password, option) => {
+  createUserWithEmailAndPassword(auth, email, password)
+      .then((user) => {
+        //setFoodtrucks(user.uid, option);
+        return user;
+      })
+      .catch(err => err);
 }

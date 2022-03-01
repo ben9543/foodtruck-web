@@ -38,4 +38,5 @@
 - [React Geolocated](https://www.npmjs.com/package/react-geolocated)
 - [Google Map React](https://www.npmjs.com/package/google-map-react)
 - [React Simple Loading](https://www.npmjs.com/package/react-simple-loading)
+- [React-toastify](https://fkhadra.github.io/react-toastify/introduction/)
 
