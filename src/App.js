@@ -11,7 +11,7 @@ import { setLoading, endLoading } from "./redux/slices/loadingSlice";
 // Libraries
 import { ToastContainer, toast } from 'react-toastify';
 import Loading from "react-simple-loading";
-import { isFoodtruck } from "./firebase";
+import { getFoodtruck, isFoodtruck } from "./firebase";
 
 let authFlag = true;
 
@@ -39,10 +39,12 @@ function App() {
       authFlag = false;
       dispatch(setLoading());
       if (user) {
-        if (await isFoodtruck(user.uid))
-          dispatch(signInFoodTruck({uid:user.uid, email: user.email}));
-        else
+        const ft = await getFoodtruck(user.uid);
+        if (ft){
+          dispatch(signInFoodTruck({uid:user.uid, email: user.email, truckName: ft.truckName, closeAt: ft.closeAt}));
+        }else{
           dispatch(signInUser({uid:user.uid, email: user.email}));
+        }
         dispatch(endLoading());
       } else if (user === null) {
         dispatch(signOutUser());

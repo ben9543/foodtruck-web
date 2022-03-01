@@ -57,6 +57,7 @@ class Geolocator extends React.Component {
     }
 
     componentDidMount(){
+        console.log("Geolocator props: ", this.props)
         
         // Fetch all foodtruck data
         const db = getDatabase();
@@ -98,9 +99,9 @@ class Geolocator extends React.Component {
                 {
                     this.props.foodTruck?
                     <FoodTruckMarker
-                    lat={this.props.coords.latitude}
-                    lng={this.props.coords.longitude}
-                    text={"Foodtruck owner mark"}
+                        lat={this.props.coords.latitude}
+                        lng={this.props.coords.longitude}
+                        text={"Foodtruck owner mark"}
                     />
                         :
                     <Marker

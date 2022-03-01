@@ -7,6 +7,8 @@ export const userSlice = createSlice({
       uid: "",
       email: "",
       foodTruck: false,
+      truckName: "",
+      closeAt: 0,
       loggedIn: false
     },
     reducers: {

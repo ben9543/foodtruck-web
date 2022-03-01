@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { db } from "../../../firebase";
 import { getAuth } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth"
-import Form from "../../../components/Form";
+import { db } from "../../../firebase";
+import { useDispatch } from 'react-redux';
 import { setLoading, endLoading } from "../../../redux/slices/loadingSlice";
 import { signInFoodTruck, signOutUser } from "../../../redux/slices/userSlice";
 import { setError } from "../../../redux/slices/errorSlice";
-import { useDispatch } from 'react-redux';
+
+import Form from "../../../components/Form";
 
 const auth = getAuth();
 
 const setFoodtrucks = async(uid, option) => {
     await setDoc(doc(db, "foodtrucks", uid), option).catch(err => err);
-  }
+}
   
 const FoodTruckSignUp = () => {
 
@@ -23,9 +24,9 @@ const FoodTruckSignUp = () => {
     // React State
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
-    const [name, setName] = useState("");
+    const [truckName, setTruckName] = useState("");
     const [info, setInfo] = useState("");
-    const [closeAt, setCloseAt] = useState("");
+    const [closeAt, setCloseAt] = useState(0);
 
     // Form
     const handleSubmit = (e) => {
@@ -33,7 +34,7 @@ const FoodTruckSignUp = () => {
         dispatch(setLoading());
         createUserWithEmailAndPassword(auth, email, pass)
             .then(async({user}) => {
-                await setFoodtrucks(user.uid, {name, info, closeAt});
+                await setFoodtrucks(user.uid, {truckName, info, closeAt});
                 dispatch(signInFoodTruck({uid:user.uid, email: user.email}));
             })
             .catch(err => {
@@ -47,7 +48,7 @@ const FoodTruckSignUp = () => {
             <p className="text-2xl">Foodtruck Owner</p>
             <input type="email" onChange={(e)=>setEmail(e.target.value)} placeholder="Email"/>
             <input type="password" onChange={(e)=>setPass(e.target.value)} placeholder="Password"/>
-            <input type="text" onChange={(e)=>setName(e.target.value)} placeholder="Business name"/>
+            <input type="text" onChange={(e)=>setTruckName(e.target.value)} placeholder="Business name"/>
             <textarea type="text" onChange={(e)=>setInfo(e.target.value)} className="rounded p-2" placeholder="Short description"/>
             <button type="submit">Sign Up</button>
         </Form>

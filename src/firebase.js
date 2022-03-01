@@ -101,8 +101,15 @@ export const getFoodtrucks = async() => {
   });*/
   return querySnapshot;
 }
-export const getFoodtruck = async() => {
-  // ...
+export const getFoodtruck = async(authId) => {
+  // Add a new document in collection "cities"
+  const docRef = doc(db, "foodtrucks", authId);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()){
+    return docSnap.data();
+  }else{
+    return null;
+  }
 }
 export const isFoodtruck = async(authId) => {
   // Add a new document in collection "cities"

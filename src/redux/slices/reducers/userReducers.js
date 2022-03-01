@@ -8,6 +8,8 @@ export const signInUserReducer = (state, { payload }) => {
 export const signInFoodTruckReducer = (state, { payload }) => {
     state.uid = payload.uid;
     state.email = payload.email;
+    state.closeAt = payload.closeAt;
+    state.truckName = payload.truckName;
     state.loggedIn = true;
     state.foodTruck = true;
 }
