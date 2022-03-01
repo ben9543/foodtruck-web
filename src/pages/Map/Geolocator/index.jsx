@@ -121,7 +121,9 @@ class Geolocator extends React.Component {
                                 key={k}
                                 lat={this.state.data[v].lat}
                                 lng={this.state.data[v].lng}
-                                text={this.state.data[v].name}
+                                text={this.state.data[v].truckName}
+                                // info={this.state.data[v].info}
+                                closeAt={this.state.data[v].closeAt}
                             />
                         );
                     }) : null
