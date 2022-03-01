@@ -83,7 +83,7 @@ class Geolocator extends React.Component {
                         lat={this.props.coords.latitude} 
                         lng={this.props.coords.longitude} 
                         didUpdate={writeFoodTruckData}
-                        name={"Example"}                // Replace with foodtruck name
+                        truckName={this.props.truckName}                // Replace with foodtruck name
                         foodtruckId={this.props.uid}    // Give unique uid
                     />:null
                 }

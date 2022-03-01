@@ -1,9 +1,9 @@
 import {useEffect} from "react";
 
-const Observer = ({ foodtruckId, lat, lng, didUpdate, name }) => {
+const Observer = ({ foodtruckId, lat, lng, didUpdate, truckName }) => {
     useEffect(() => {
-        if(foodtruckId && name)
-          didUpdate({foodtruckId, lat, lng, name});
+        if(foodtruckId && truckName)
+          didUpdate({foodtruckId, lat, lng, truckName});
     }, [lat, lng, didUpdate])
     return null // component does not render anything
 }

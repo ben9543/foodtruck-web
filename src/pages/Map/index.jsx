@@ -29,7 +29,7 @@ const Map = () => {
     return (
         <>
         <button onClick={userSignOut}>Logout</button>
-        <Geolocator foodTruck={user.foodTruck} uid={user.uid}/>
+        <Geolocator foodTruck={user.foodTruck} uid={user.uid} truckName={user.truckName ? user.truckName : "Ananymous truck"}/>
         </>
     )
 }
