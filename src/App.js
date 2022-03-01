@@ -6,7 +6,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { signInFoodTruck, signInUser, signOutUser } from "./redux/slices/userSlice";
-// import { setError } from "./redux/slices/errorSlice";
 import { setLoading, endLoading } from "./redux/slices/loadingSlice";
 
 // Libraries
@@ -45,7 +44,7 @@ function App() {
         else
           dispatch(signInUser({uid:user.uid, email: user.email}));
         dispatch(endLoading());
-      } else if (user == null) {
+      } else if (user === null) {
         dispatch(signOutUser());
         dispatch(endLoading());
       }
@@ -56,10 +55,6 @@ function App() {
   if (loading.loading) return <Loading/>
   return (
     <div className="App text-gray-800">
-      {JSON.stringify(user)}
-      <br/>
-      {JSON.stringify(error)}
-      <p>{JSON.stringify(loading)}</p>
       {
         !user.loggedIn ?
           <Auth/>

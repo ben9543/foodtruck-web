@@ -82,8 +82,8 @@ class Geolocator extends React.Component {
                         lat={this.props.coords.latitude} 
                         lng={this.props.coords.longitude} 
                         didUpdate={writeFoodTruckData}
-                        name={"Example"}   // Replace with foodtruck name
-                        foodtruckId={this.props.uid}      // Give unique uid
+                        name={"Example"}                // Replace with foodtruck name
+                        foodtruckId={this.props.uid}    // Give unique uid
                     />:null
                 }
                 <GoogleMapReact
@@ -96,19 +96,26 @@ class Geolocator extends React.Component {
                 
                 {/* User marker */}
                 {
-                    !this.props.foodTruck?
+                    this.props.foodTruck?
+                    <FoodTruckMarker
+                    lat={this.props.coords.latitude}
+                    lng={this.props.coords.longitude}
+                    text={"Foodtruck owner mark"}
+                    />
+                        :
                     <Marker
                         lat={this.props.coords.latitude}
                         lng={this.props.coords.longitude}
                         text={"I'm Here"}
-                    />:null
+                    />
                 }
 
                 {/* Example marker */}
                 {
                     this.state.data? 
                     Object.keys(this.state.data).map((v,k) => {
-                        if (this.state.data[v] === null) return null
+                        if (this.state.data[v] === null) return null;
+                        if (this.props.uid === v) return null;
                         return (
                             <FoodTruckMarker
                                 key={k}
