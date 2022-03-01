@@ -33,7 +33,7 @@ const Map = () => {
             foodTruck={user.foodTruck} 
             uid={user.uid} 
             truckName={user.truckName ? user.truckName : "Ananymous truck"}
-            closeAt={user.closeAt}/>
+            closeAt={user.closeAt ? user.truckName : 0}/>
         </>
     )
 }
