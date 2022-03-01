@@ -11,12 +11,14 @@ const auth = getAuth();
 
 export const AppBar = ({uid, email, title, logoutBtn}) => {
     return(
-        <header className="bg-blue-500 fixed h-14 z-50 w-full text-gray-100 flex items-center justify-between">
-            <div className="h-10 w-10 border">
+        <header className="bg-white shadow-lg fixed h-14 z-50 w-full text-gray-900 flex items-center justify-between">
+            <div id="menu" className="border flex items-center justify-center">
                 hamburger
             </div>
-            <p className="text-xl text-center">{title}</p>
-            <div>
+            <div id="title" className="flex items-center justify-center">
+                <p className="text-xl text-center">{title}</p>
+            </div>
+            <div id="profile">
                 {logoutBtn}
             </div>
         </header>
