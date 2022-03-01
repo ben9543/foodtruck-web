@@ -22,9 +22,6 @@ const Authentication = () => {
     const dispatch = useDispatch();
     onAuthStateChanged(auth, async(user) => {
         if (user) {
-            if(await isFoodtruck({auth_id: user.uid})){
-                console.log("Foodtruck owner")
-            }
             dispatch(signInUser({uid:user.uid, email: user.email}));
         }
         else dispatch(signOutUser());

@@ -1,20 +1,32 @@
 import React, {useState}from "react";
-import { signInCustom, signUpCustom } from "../../firebase";
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    setErrorMsg,
+} from "../../redux/slices/errorSlice";
+import { signInCustomFoodtruck, signUpCustom } from "../../firebase";
 import { Form, Input, Button, SmallTitle, ErrorHandler, ToggleButtonWrapper, ToggleButton, Divider, ModeToggleButton, FormWrapper } from "./styles";
 import { USER, SIGNIN, SIGNUP } from "./index";
 
-const FoodTruckMOwnerAuthPage = ({setMode}) => {
+const FoodTruckOwnerAuthPage = ({setMode}) => {
+
+    // Redux State
+    const errorState = useSelector((state) => state.error);
+    const dispatch = useDispatch();
+
     // React State
     const [authMode, setAuthMode] = useState(SIGNIN);
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const [username, setUsername] = useState("");
-    const [errorMsg, setErrorMsg] = useState("");
+    const [errorMsg, setError] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        if(authMode === SIGNIN)signInCustom(email, pass, setErrorMsg);
-        else if(authMode === SIGNUP)signUpCustom(email, pass, setErrorMsg);
+        if(authMode === SIGNIN){
+            signInCustomFoodtruck(email, pass, dispatch, setErrorMsg);
+            setError(errorState);
+        }
+        else if(authMode === SIGNUP)signUpCustom(email, pass, dispatch, setErrorMsg);
     }
     return (
         <FormWrapper>
@@ -92,4 +104,4 @@ const SignUp = ({handleSubmit, setAuthMode, errorMsg, email, username, pass, set
     );
 }
 
-export default FoodTruckMOwnerAuthPage;
+export default FoodTruckOwnerAuthPage;

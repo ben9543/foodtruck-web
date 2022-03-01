@@ -18,16 +18,20 @@
   - [] Once Footruck owners logged in, keep sends location data to Firebase Database
   - [X] Read data from Fireabse Realtime Database for Foodtruck owners
 - [] Marker style update
-- [x] Style component
+- [X] Style component
 - [] Database design
   - [] FoodTruck database model
-    - [X] lat
-    - [X] lng
-    - [X] name
-    - [] info
-    - [] close at
-    - [] like
+    - [] title 
+    - [] username
+    - [] description
+    - [] likes
     - [] rating
+    - [] thumbnail
+
+  - [] FoodTruck Realtime DB model
+    - [] close at (real time db)
+    - [X] lat (real time db)
+    - [X] lng (real time db)
 
 ## Library Links
 

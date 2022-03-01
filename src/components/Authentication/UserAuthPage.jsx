@@ -2,6 +2,10 @@ import React, {useState}from "react";
 import { signInCustom, signUpCustom } from "../../firebase";
 import { Form, Input, Button, SmallTitle, ErrorHandler, ToggleButtonWrapper, ModeToggleButton, ToggleButton, Divider, FormWrapper } from "./styles";
 import { FOODTURCK, SIGNIN, SIGNUP } from "./index";
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    setErrorMsg,
+} from "../../redux/slices/errorSlice";
 
 const UserAuthPage = ({setMode}) => {
     

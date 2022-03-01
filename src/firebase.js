@@ -104,19 +104,42 @@ export const getFoodtrucks = async() => {
 export const getFoodtruck = async() => {
   // ...
 }
-export const isFoodtruck = async({auth_id}) => {
+export const isFoodtruck = async(auth_id) => {
   // Add a new document in collection "cities"
   const docRef = doc(db, "foodtrucks", auth_id);
   const docSnap = await getDoc(docRef);
   return docSnap.exists();
 }
 
-export const setFoodtrucks = async({uid}) => {
+/*
+  ** FoodTruck DB model **
+  - [] title 
+  - [] username
+  - [] description
+  - [] likes
+  - [] rating
+  - [] thumbnail
+*/
+
+export const setFoodtrucks = async({uid, title, username, description, likes, rating, thumbnail}) => {
   await setDoc(doc(db, "foodtrucks", uid), {
-    name: "Los Angeles",
-    state: "CA",
-    country: "USA"
+    title, username, description, likes, rating, thumbnail
   });
+}
+export const signInCustomFoodtruck = async(email, password, dispatch, setErrorMsg) => {
+    await signInWithEmailAndPassword(auth, email, password)
+      .then(async({user}) => {
+        if (!(await isFoodtruck(user.uid))){
+          throw {code: "404", message: "You are not foodtruck business owner"};
+        }
+      })
+      .catch(async(error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        dispatch(setErrorMsg({code: errorCode, message: errorMessage}));
+        await signOut(auth);
+      });
+    // Do something with userCredential if you want to
 }
 
 export const signUpCustomFoodtruck = async(email, password, setErrorMsg) => {
