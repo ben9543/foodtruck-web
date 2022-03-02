@@ -4,12 +4,17 @@ import { signInUserReducer, signInFoodTruckReducer, signUpUserReducer, signOutUs
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
+
+      // User info
       uid: "",
       email: "",
+      loggedIn: false,
+
+      // Truck info
       foodTruck: false,
       truckName: "",
+      info: "",
       closeAt: 0,
-      loggedIn: false
     },
     reducers: {
         signInUser: signInUserReducer,

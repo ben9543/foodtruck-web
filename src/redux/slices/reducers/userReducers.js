@@ -10,6 +10,7 @@ export const signInFoodTruckReducer = (state, { payload }) => {
     state.email = payload.email;
     state.closeAt = payload.closeAt;
     state.truckName = payload.truckName;
+    state.info = payload.info;
     state.loggedIn = true;
     state.foodTruck = true;
 }
