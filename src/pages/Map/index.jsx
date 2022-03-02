@@ -48,8 +48,9 @@ const Map = () => {
         <Geolocator 
             foodTruck={user.foodTruck} 
             uid={user.uid} 
-            truckName={user.truckName ? user.truckName : "Ananymous truck"}
-            closeAt={user.closeAt ? user.closeAt : 0}/>
+            truckName={user.truckName}
+            closeAt={user.closeAt}
+            info={user.info}/>
         </>
     )
 }
