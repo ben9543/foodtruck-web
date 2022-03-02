@@ -24,7 +24,6 @@ const UserSignUp = () => {
         dispatch(setLoading());
         createUserWithEmailAndPassword(auth, email, pass)
             .then(({user}) => {
-                console.log(user)
                 dispatch(signInUser({uid:user.uid, email: user.email}));
             })
             .catch(err => {

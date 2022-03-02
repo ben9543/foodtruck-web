@@ -41,7 +41,12 @@ function App() {
       if (user) {
         const ft = await getFoodtruck(user.uid);
         if (ft){
-          dispatch(signInFoodTruck({uid:user.uid, email: user.email, truckName: ft.truckName, closeAt: ft.closeAt}));
+          dispatch(signInFoodTruck({
+            uid:user.uid, 
+            email: user.email, 
+            truckName: ft.truckName, 
+            closeAt: ft.closeAt,
+            info: ft.info}));
         }else{
           dispatch(signInUser({uid:user.uid, email: user.email}));
         }

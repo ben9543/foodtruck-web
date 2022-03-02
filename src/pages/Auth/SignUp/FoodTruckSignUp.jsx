@@ -35,7 +35,7 @@ const FoodTruckSignUp = () => {
         createUserWithEmailAndPassword(auth, email, pass)
             .then(async({user}) => {
                 await setFoodtrucks(user.uid, {truckName, info, closeAt});
-                dispatch(signInFoodTruck({uid:user.uid, email: user.email}));
+                dispatch(signInFoodTruck({uid:user.uid, email: user.email, truckName, closeAt, info}));
             })
             .catch(err => {
                 dispatch(signOutUser());
