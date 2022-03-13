@@ -3,7 +3,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/7920784f-5040-4958-87df-814b5e044fbe/deploy-status)](https://app.netlify.com/sites/tender-neumann-832fd1/deploys)
 
-- https://6213ae481ba4d923b4853b94--tender-neumann-832fd1.netlify.app/
+- https://naughty-lichterman-0ff065.netlify.app/
 
 ## Things to do
 
