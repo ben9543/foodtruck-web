@@ -4,7 +4,7 @@ import { getDatabase, ref, remove } from "firebase/database";
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, endLoading } from "../../redux/slices/loadingSlice";
 import { signOutUser } from "../../redux/slices/userSlice";
-import { setError, removeError } from "../../redux/slices/errorSlice";
+import { removeError } from "../../redux/slices/errorSlice";
 import Geolocator from "./Geolocator";
 
 const auth = getAuth();
@@ -39,9 +39,9 @@ const Map = () => {
         dispatch(removeError());
         dispatch(endLoading());
     }
-    const handleError = ({message}) => {
+    /*const handleError = ({message}) => {
         dispatch(setError({errorCode: "smth bad", errorMessage:message}));
-    }
+    }*/
     return (
         <>
         <AppBar title={"Foodtruck Hacker v1"} logout={userSignOut}/>
