@@ -1,17 +1,12 @@
 import React from "react";
+import { Truck } from "@styled-icons/fa-solid";
 const FoodTruckMarker = ({lat, lng, text}) => {
     return (
-        <div className="bg-red-500 rounded-full h-3 w-3">
+        <div className="text-gray-800 h-6 w-6 font-bold">
+            <Truck/>
             <div>
-                {text}
+                <p>{text}</p>
             </div>
-            <details>
-                <summary>Show Coord</summary>
-                <div>
-                    <p>Lat: {lat}</p>
-                    <p>Lng: {lng}</p>
-                </div>
-            </details>
         </div>
     )
 }
