@@ -11,7 +11,7 @@ import { setLoading, endLoading } from "./redux/slices/loadingSlice";
 // Libraries
 import { ToastContainer, toast } from 'react-toastify';
 import Loading from "react-simple-loading";
-import { getFoodtruck, isFoodtruck } from "./firebase";
+import { getFoodtruck } from "./firebase";
 
 let authFlag = true;
 
