@@ -118,13 +118,6 @@ export const isFoodtruck = async(authId) => {
   return docSnap.exists();
 }
 
-/*  
-    - [X] name
-    - [] info
-    - [] close at
-    - [] like
-    - [] rating */
-
 export const setFoodtrucks = async(uid, {name, closeAt, description}) => {
   await setDoc(doc(db, "foodtrucks", uid), {
     name, closeAt, description
