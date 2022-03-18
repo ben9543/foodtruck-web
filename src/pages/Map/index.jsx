@@ -8,6 +8,7 @@ import { removeError } from "../../redux/slices/errorSlice";
 import Geolocator from "./Geolocator";
 
 const auth = getAuth();
+const LOGO_URL = "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/3a47f248449813.5608313a6db56.png";
 
 export const AppBar = ({uid, email, title, logout}) => {
     return(
@@ -19,7 +20,7 @@ export const AppBar = ({uid, email, title, logout}) => {
             </div>
             <div id="title" className="lg:ml-6 lg:w-80 flex items-center justify-between h-full">
                 <span id="logo-container" className="h-8 w-8">
-                    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/3a47f248449813.5608313a6db56.png" className="object-cover w-full h-full"/>
+                    <img src={LOGO_URL} className="object-cover w-full h-full" alt=""/>
                 </span>
                 <div id="title-container" className="w-full">
                     <p className="text-xl text-center w-full">{title}</p>
