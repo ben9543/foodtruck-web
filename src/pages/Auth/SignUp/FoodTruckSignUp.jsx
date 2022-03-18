@@ -48,8 +48,8 @@ const FoodTruckSignUp = () => {
             <p className="text-2xl">Foodtruck Owner</p>
             <input type="email" onChange={(e)=>setEmail(e.target.value)} placeholder="Email"/>
             <input type="password" onChange={(e)=>setPass(e.target.value)} placeholder="Password"/>
-            <input type="text" onChange={(e)=>setTruckName(e.target.value)} placeholder="Business name"/>
-            <textarea type="text" onChange={(e)=>setInfo(e.target.value)} className="rounded p-2" placeholder="Short description"/>
+            <input type="text" required onChange={(e)=>setTruckName(e.target.value)} placeholder="Business name"/>
+            <textarea type="text" required onChange={(e)=>setInfo(e.target.value)} className="rounded p-2" placeholder="Short description"/>
             <button type="submit">Sign Up</button>
         </Form>
     );

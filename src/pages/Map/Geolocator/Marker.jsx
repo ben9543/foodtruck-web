@@ -1,18 +1,11 @@
 import React from "react";
+import {LocationOn} from "@styled-icons/material";
 
 const Marker = ({lat, lng, text, onClick}) => {
     return (
-        <div onClick={onClick}>
-            <div style={{border: "3px solid gray", borderRadius: "9999px", height: "20px", width: "20px"}}>
-                {text}
-            </div>
-            <details>
-                <summary>Show Coord</summary>
-                <div>
-                    <p>Lat: {lat}</p>
-                    <p>Lng: {lng}</p>
-                </div>
-            </details>
+        <div onClick={onClick} className="h-8 w-8 text-red-500 font-bold">
+            <LocationOn/>
+            {text}
         </div>
     )
 }

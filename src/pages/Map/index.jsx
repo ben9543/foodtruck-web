@@ -9,17 +9,17 @@ import Geolocator from "./Geolocator";
 
 const auth = getAuth();
 
-export const AppBar = ({uid, email, title, logoutBtn}) => {
+export const AppBar = ({uid, email, title, logout}) => {
     return(
         <header className="bg-white shadow-lg fixed h-14 z-50 w-full text-gray-900 flex items-center justify-between">
-            <div id="menu" className="border flex items-center justify-center">
-                hamburger
+            <div id="menu" className="flex items-center justify-center h-full ml-4">
+                <div>Hamburger</div>
             </div>
-            <div id="title" className="flex items-center justify-center">
+            <div id="title" className="flex items-center justify-center h-full">
                 <p className="text-xl text-center">{title}</p>
             </div>
-            <div id="profile">
-                {logoutBtn}
+            <div id="profile" className="flex items-center justify-center h-full mr-4">
+                <button className="" onClick={logout}>Logout</button>
             </div>
         </header>
     );
@@ -44,7 +44,7 @@ const Map = () => {
     }
     return (
         <>
-        <AppBar title={"Foodtruck Hacker v1"} logoutBtn={<button onClick={userSignOut}>Logout</button>}/>
+        <AppBar title={"Foodtruck Hacker v1"} logout={userSignOut}/>
         <Geolocator 
             foodTruck={user.foodTruck} 
             uid={user.uid} 
