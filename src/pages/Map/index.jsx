@@ -1,6 +1,6 @@
 import React from "react";
 import { getAuth, signOut } from "firebase/auth";
-import { getDatabase, ref, remove } from "firebase/database";
+import { getDatabase, ref, update } from "firebase/database";
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, endLoading } from "../../redux/slices/loadingSlice";
 import { signOutUser } from "../../redux/slices/userSlice";
@@ -47,7 +47,9 @@ const Map = () => {
     const userSignOut = async() => {
         dispatch(setLoading());
         await signOut(auth);
-        await remove(foodTruckRef);
+        if (user.foodTruck && foodTruckRef){
+            await update(foodTruckRef, {online: false});
+        }
         dispatch(signOutUser());
         dispatch(removeError());
         dispatch(endLoading());

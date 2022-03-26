@@ -15,6 +15,7 @@ export const userSlice = createSlice({
       truckName: "",
       info: "",
       closeAt: 0,
+      truckIsOnline: false
     },
     reducers: {
         signInUser: signInUserReducer,
