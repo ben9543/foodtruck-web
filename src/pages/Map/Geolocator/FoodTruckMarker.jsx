@@ -5,7 +5,6 @@ const FoodTruckMarker = ({lat, lng, text, online, myFoodTruck}) => {
     let size = "h-5 w-5";
     if (myFoodTruck) size = "h-6 w-6"; 
     if (online) color = "red-500";
-
     return (
         <div className={`text-${color} ${size} font-bold`}>
             <Truck/>
