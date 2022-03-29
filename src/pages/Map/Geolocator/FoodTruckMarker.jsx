@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { Truck } from "@styled-icons/fa-solid";
 import { CloudOffline } from "@styled-icons/fluentui-system-regular"
 
