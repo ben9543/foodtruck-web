@@ -120,7 +120,7 @@ class Geolocator extends React.Component {
                         console.log(this.state.data[v].online)
                         if (this.state.data[v] === null) return null;
                         if (this.props.uid === v) return null;
-                        
+                        if (v === "online") return null;
                         return (
                             <FoodTruckMarker
                                 key={k}

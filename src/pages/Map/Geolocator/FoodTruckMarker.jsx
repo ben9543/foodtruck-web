@@ -4,9 +4,13 @@ import { CloudOffline } from "@styled-icons/fluentui-system-regular"
 
 const FoodTruckMarker = ({lat, lng, text, online, myFoodTruck}) => {
     let color = "gray-800";
-    if (online) color = "green-500";
+    let opacity = "60";
+    if (online) {
+        color = "green-500";
+        opacity = "100";
+    }
     return (
-        <div className={`text-${color} w-12 h-12 font-bold grid grid-cols-5 grid-rows-4`}>
+        <div className={`text-${color} w-12 h-12 font-bold grid grid-cols-5 grid-rows-4 opacity-${opacity}`}>
             <div className="row-span-3 col-span-3 flex items-center justify-center ">
                 <Truck size={30}/>
             </div>
