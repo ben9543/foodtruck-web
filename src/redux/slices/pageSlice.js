@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { homePageReducer, mapPageReducer, authPageReducer, errorPageReducer, pageConfig } from './reducers/pageReducers';
+import { homePageReducer, mapPageReducer, authPageReducer, errorPageReducer, pageConfig, aboutPageReducer, contactPageReducer } from './reducers/pageReducers';
 
 export const pageSlice = createSlice({
     name: 'page',
@@ -11,6 +11,8 @@ export const pageSlice = createSlice({
         mapPage: mapPageReducer,
         authPage: authPageReducer,
         errorPage: errorPageReducer,
+        aboutPage: aboutPageReducer,
+        contactPage: contactPageReducer,
         defaultPage: homePageReducer
     },
   })
