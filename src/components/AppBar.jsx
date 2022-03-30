@@ -3,7 +3,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { getDatabase, ref, update } from "firebase/database";
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, endLoading } from "../redux/slices/loadingSlice";
-import { homePage, authPage, mapPage, defaultPage } from "../redux/slices/pageSlice";
+import { homePage, authPage, mapPage } from "../redux/slices/pageSlice";
 import { signOutUser } from "../redux/slices/userSlice";
 import { removeError } from "../redux/slices/errorSlice";
 import { pageConfig } from "../redux/slices/reducers/pageReducers";
@@ -18,8 +18,8 @@ const AppBar = ({title}) => {
     const page = useSelector((state) => state.page);
     const foodTruckRef = ref(db, 'foodtrucks/' + user.uid);
 
-    let bgColor = "bg-transparent";
-    if (page.page === pageConfig.map || page.page === pageConfig.auth) bgColor = "bg-blue-800";
+    let bgColorBlue = false;
+    if (page.page === pageConfig.map || page.page === pageConfig.auth) bgColorBlue = true;
 
     const userSignOut = async() => {
         dispatch(setLoading());
@@ -30,16 +30,17 @@ const AppBar = ({title}) => {
         dispatch(signOutUser());
         dispatch(removeError());
         dispatch(endLoading());
-        dispatch(defaultPage());
     }
     return(
-        <header className={`${bgColor} fixed h-14 z-50 w-full text-gray-200 flex items-center justify-between`}>
+        <header style={{
+            backgroundColor: bgColorBlue ? "#195AA9" : "transparent"
+        }} className={`fixed h-14 z-50 w-full text-gray-200 flex items-center justify-between`}>
             <div id="hamburger" className="lg:hidden flex items-center justify-center h-full ml-4">
                 <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
                     <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
                 </button>
             </div>
-            <div id="title" className="lg:ml-6 lg:w-80 flex items-center justify-between h-full">
+            <div onClick={()=>dispatch(homePage())} id="title" className="lg:ml-6 lg:w-80 flex items-center justify-between h-full cursor-pointer">
                 <span id="logo-container" className="h-8 w-8">
                     <img src={Logo} className="object-cover w-full h-full" alt=""/>
                 </span>

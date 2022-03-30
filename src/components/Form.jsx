@@ -25,6 +25,10 @@ const Container = styled.form`
         margin-top: 2rem;
         margin-bottom: 0.5rem;
     }
+    button:hover{
+        background-color: #1b1e23;
+        color: white;
+    }
 `;
 
 const Form = ({children ,onSubmit}) => {

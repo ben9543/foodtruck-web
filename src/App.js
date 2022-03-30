@@ -6,7 +6,8 @@ import { getDatabase, onDisconnect, ref } from "firebase/database";
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { homePage } from "./redux/slices/pageSlice";
+import { homePage, authPage } from "./redux/slices/pageSlice";
+import { pageConfig } from "./redux/slices/reducers/pageReducers";
 import { signInFoodTruck, signInUser, signOutUser } from "./redux/slices/userSlice";
 import { setLoading, endLoading } from "./redux/slices/loadingSlice";
 
@@ -24,6 +25,7 @@ function App() {
   const isFoodTruck = useSelector((state) => state.user.foodTruck);
   const error = useSelector((state) => state.error);
   const loading = useSelector((state) => state.loading);
+  const page = useSelector((state) => state.page);
   const foodTruckRef = ref(db, 'foodtrucks/' + user.uid);
   const auth = getAuth();
   const dispatch = useDispatch();
@@ -68,9 +70,8 @@ function App() {
         dispatch(signOutUser());
         dispatch(endLoading());
       }
-      
+      dispatch(homePage());
     } // authFlag ends
-    dispatch(homePage());
   });
 
   // Loading component

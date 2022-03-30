@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import Form from "../../../components/Form";
 import { setLoading, endLoading } from "../../../redux/slices/loadingSlice";
 import { signInUser, signOutUser } from "../../../redux/slices/userSlice";
@@ -29,6 +28,7 @@ const UserSignUp = () => {
             .catch(err => {
                 dispatch(signOutUser());
                 dispatch(setError({errorCode: err.code, errorMessage: err.message}));
+                
             });
         dispatch(endLoading());
     }
@@ -37,7 +37,7 @@ const UserSignUp = () => {
             <p className="text-2xl">User</p>
             <input type="email" onChange={(e)=>setEmail(e.target.value)} placeholder="Email"/>
             <input type="password" onChange={(e)=>setPass(e.target.value)} placeholder="Password"/>
-            <button type="submit">Sign Up</button>
+            <button className="transition-all" type="submit">Sign Up</button>
         </Form>
     );
 }
