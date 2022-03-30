@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import Auth from "./pages/Auth";
-import Map from "./pages/Map";
+import AppBar from './components/AppBar';
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, onDisconnect, ref } from "firebase/database";
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
+import { homePage } from "./redux/slices/pageSlice";
 import { signInFoodTruck, signInUser, signOutUser } from "./redux/slices/userSlice";
 import { setLoading, endLoading } from "./redux/slices/loadingSlice";
 
@@ -13,13 +14,13 @@ import { setLoading, endLoading } from "./redux/slices/loadingSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import Loading from "react-simple-loading";
 import { getFoodtruck } from "./firebase";
+import Application from "./pages/Application";
 
 let authFlag = true;
 
 function App() {
   const db = getDatabase();
   const user = useSelector((state) => state.user);
-  const page = useSelector((state) => state.page);
   const isFoodTruck = useSelector((state) => state.user.foodTruck);
   const error = useSelector((state) => state.error);
   const loading = useSelector((state) => state.loading);
@@ -47,7 +48,6 @@ function App() {
 
   // Authflag needed because onAuthStateChanged get triggered twice
   onAuthStateChanged(auth, async(user) => {
-    console.log(page);
     if(authFlag){
       authFlag = false;
       dispatch(setLoading());
@@ -68,18 +68,18 @@ function App() {
         dispatch(signOutUser());
         dispatch(endLoading());
       }
+      
     } // authFlag ends
+    dispatch(homePage());
   });
 
   // Loading component
   if (loading.loading) return <Loading/>
   return (
     <div className="App text-gray-800" >
+      <AppBar title={"Foodtruck Hacker"}/>
       {
-        !user.loggedIn ?
-          <Auth/>
-            :
-          <Map/>
+          <Application/>
       }
       <ToastContainer 
         position="bottom-right"

@@ -1,4 +1,4 @@
-const DEFAULT = "";
+
 export const setLoadingReducer = (state, _) => {
     state.loading = true;
 }

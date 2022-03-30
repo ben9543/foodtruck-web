@@ -1,4 +1,15 @@
-export const DEFAULT = "home";
+const HOME = "home";
+const MAP = "map";
+const AUTH = "auth";
+const ERROR = "error";
+const DEFAULT = HOME;
+export const pageConfig = {
+    home: HOME,
+    map: MAP,
+    auth: AUTH,
+    error: ERROR,
+    default: DEFAULT
+}
 export const homePageReducer = (state, _) => {
     state.page = "home";
 }
