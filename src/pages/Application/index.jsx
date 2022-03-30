@@ -5,6 +5,8 @@ import Auth from '../Auth';
 import Error from '../Error';
 import Home from '../Home';
 import Map from "../Map";
+import About from "../About";
+import Contact from "../Contact";
 
 const Application = () => {
     const { page } = useSelector((state) => state.page);
@@ -19,6 +21,10 @@ const Application = () => {
                 return <Auth/>
             case pageConfig.error:
                 return <Error/>
+            case pageConfig.about:
+                return <About/>
+            case pageConfig.contact:
+                return <Contact/>
             default:
                 return <Home/>
         }

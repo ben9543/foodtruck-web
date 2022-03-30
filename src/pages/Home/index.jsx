@@ -1,6 +1,6 @@
 //import BgImage from "./bg_image.jpeg";
 import { useDispatch, useSelector } from 'react-redux';
-import { authPage, mapPage } from "../../redux/slices/pageSlice";
+import { authPage, mapPage, aboutPage } from "../../redux/slices/pageSlice";
 const Home = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
@@ -19,7 +19,7 @@ const Home = () => {
     const LoggedOutButton = () => {
         return (
             <>
-            <button className="py-2 px-6 border rounded bg-gray-200/10 transition-all hover:bg-gray-200 hover:text-gray-900">
+            <button onClick={()=>dispatch(aboutPage())} className="py-2 px-6 border rounded bg-gray-200/10 transition-all hover:bg-gray-200 hover:text-gray-900">
                 <p>Learn More</p>
             </button>
             <button onClick={()=>dispatch(authPage())} className="py-2 px-6 border rounded bg-gray-200/10 transition-all hover:bg-gray-200 hover:text-gray-900">

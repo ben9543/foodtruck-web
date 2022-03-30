@@ -18,5 +18,5 @@ export const pageSlice = createSlice({
   })
   
   // Action creators are generated for each case reducer function
-export const { homePage, mapPage, authPage, errorPage, defaultPage } = pageSlice.actions;
+export const { homePage, mapPage, authPage, errorPage, aboutPage, contactPage, defaultPage } = pageSlice.actions;
 export default pageSlice.reducer;

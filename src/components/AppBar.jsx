@@ -3,10 +3,10 @@ import { getAuth, signOut } from "firebase/auth";
 import { getDatabase, ref, update } from "firebase/database";
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading, endLoading } from "../redux/slices/loadingSlice";
-import { homePage, authPage, mapPage } from "../redux/slices/pageSlice";
+import { homePage, authPage, mapPage, aboutPage, contactPage } from "../redux/slices/pageSlice";
 import { signOutUser } from "../redux/slices/userSlice";
 import { removeError } from "../redux/slices/errorSlice";
-import { pageConfig } from "../redux/slices/reducers/pageReducers";
+// import { pageConfig } from "../redux/slices/reducers/pageReducers";
 import Logo from "./logo.png"
 
 const auth = getAuth();
@@ -15,11 +15,10 @@ const AppBar = ({title}) => {
     const dispatch = useDispatch();
     const db = getDatabase();
     const user = useSelector((state) => state.user);
-    const page = useSelector((state) => state.page);
+    // const page = useSelector((state) => state.page);
     const foodTruckRef = ref(db, 'foodtrucks/' + user.uid);
 
-    let bgColorBlue = false;
-    if (page.page === pageConfig.map || page.page === pageConfig.auth) bgColorBlue = true;
+    let bgColorBlue = "#195AA9";
 
     const userSignOut = async() => {
         dispatch(setLoading());
@@ -33,8 +32,8 @@ const AppBar = ({title}) => {
     }
     return(
         <header style={{
-            backgroundColor: bgColorBlue ? "#195AA9" : "transparent"
-        }} className={`fixed h-14 z-50 w-full text-gray-200 flex items-center justify-between`}>
+            backgroundColor: bgColorBlue
+        }} className={`fixed h-14 z-50 w-full text-gray-200 flex items-center justify-between shadow`}>
             <div id="hamburger" className="lg:hidden flex items-center justify-center h-full ml-4">
                 <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
                     <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
@@ -56,8 +55,8 @@ const AppBar = ({title}) => {
                     </>
                     :null
                 }
-                <span className="mr-4 cursor-pointer">Menu 2</span>
-                <span className="cursor-pointer">Menu 3</span>
+                <span onClick={()=>dispatch(aboutPage())} className="mr-4 cursor-pointer">About</span>
+                <span onClick={()=>dispatch(contactPage())} className="cursor-pointer">Contact</span>
             </div>
             <div id="profile" className="flex items-center justify-center h-full mr-4">
                 {
