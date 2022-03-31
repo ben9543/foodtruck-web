@@ -118,8 +118,12 @@ class Geolocator extends React.Component {
                     this.state.data? 
                     Object.keys(this.state.data).map((v,k) => {
                         if (this.state.data[v] === null) return null;
+                        if (this.state.data[v].truckName === undefined) return null;
+                        if (this.state.data[v].lat === undefined) return null;
+                        if (this.state.data[v].lng === undefined) return null;
+                        if (this.state.data[v].online === undefined) return null;
                         if (this.props.uid === v) return null;
-                        if (v === "online") return null;
+                        // if (v === "online") return null;
                         return (
                             <FoodTruckMarker
                                 key={k}
