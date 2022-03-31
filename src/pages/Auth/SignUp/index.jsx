@@ -20,7 +20,7 @@ const SignIn = ({toggle, setToggle}) => {
     }
     
     return(
-        <Card title="Sign Up">
+        <Card title="Sign Up" scrollable={true}>
         {
             (mode === FOODTURCK)?
             <FoodTruckSignUp />
@@ -30,12 +30,15 @@ const SignIn = ({toggle, setToggle}) => {
                 :
             <> 
             {/* Default Page */}
-            <div id="description" className=" mb-4">
+            <div id="description" className=" my-6">
                 <p>Please select account type</p>
-                <p className="text-xs">What is account type?</p>
             </div>
-            <button onClick={()=>setMode(FOODTURCK)} className="hover:bg-green-500 rounded-full w-full border border-green-600 px-10 py-4 text-xl mb-4">Foodtruck business owner</button>
-            <button onClick={()=>setMode(USER)} className="hover:bg-blue-500 rounded-full w-full border border-blue-600 px-10 py-4 text-xl mb-4">User</button>
+            <button onClick={()=>setMode(FOODTURCK)} className="flex items-center justify-center hover:bg-green-700 hover:text-gray-200 rounded-full w-full border border-green-800 px-10 py-4 text-xl mb-4 transition-all">
+                <p className="break-normal whitespace-nowrap">Foodtruck business owner</p>
+            </button>
+            <button onClick={()=>setMode(USER)} className="flex items-center justify-center hover:bg-blue-800 hover:text-gray-200 rounded-full w-full border border-blue-900 px-10 py-4 text-xl mb-4 transition-all">
+                <p>User</p>
+            </button>
             </>
         }
         {
@@ -48,13 +51,17 @@ const SignIn = ({toggle, setToggle}) => {
             (mode === FOODTURCK)?
             <>
             <Divider/>
-            <button onClick={()=>setMode(USER)} className="hover:bg-blue-500 rounded-full w-full border border-blue-600 px-10 py-4 text-xl mb-4">User</button>
+            <button onClick={()=>setMode(USER)} className="flex items-center justify-center hover:bg-blue-800 hover:text-gray-200 rounded-full w-full border border-blue-900 px-10 py-4 text-xl mb-4 transition-all">
+                <p>User</p>
+            </button>
             </>
                 :
             (mode === USER)?
             <>
             <Divider/>
-            <button onClick={()=>setMode(FOODTURCK)} className="hover:bg-green-500 rounded-full w-full border border-green-600 px-10 py-4 text-xl mb-4">Foodtruck business owner</button>
+            <button onClick={()=>setMode(FOODTURCK)} className="flex items-center justify-center hover:bg-green-700 hover:text-gray-200 rounded-full w-full border border-green-800 px-10 py-4 text-xl mb-4 transition-all">
+                <p className="break-normal whitespace-nowrap">Foodtruck business owner</p>
+            </button>
             </>
                 :
             null

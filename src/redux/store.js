@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import errorReducer from "../redux/slices/errorSlice"
 import userReducer from "../redux/slices/userSlice";
-
+import pageReducer from "../redux/slices/pageSlice";
 import loadingReducer from './slices/loadingSlice';
 
 // This creates a Redux store, and also automatically configure 
@@ -11,6 +11,7 @@ export default configureStore({
   reducer: {
       user: userReducer,
       error: errorReducer,
-      loading: loadingReducer
+      loading: loadingReducer,
+      page: pageReducer
   },
 })

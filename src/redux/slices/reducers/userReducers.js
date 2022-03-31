@@ -13,6 +13,7 @@ export const signInFoodTruckReducer = (state, { payload }) => {
     state.info = payload.info;
     state.loggedIn = true;
     state.foodTruck = true;
+    state.truckIsOnline = true;
 }
 export const signUpUserReducer = (state, action) => {
     console.log(state, action)
@@ -22,4 +23,5 @@ export const signOutUserReducer = (state, action) => {
     state.uid = DEFAULT;
     state.email = DEFAULT;
     state.loggedIn = false;
+    state.truckIsOnline = false;
 }

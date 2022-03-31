@@ -21,9 +21,9 @@ const config = {
     isOptimisticGeolocationEnabled: true
 }
 
-const writeFoodTruckData = ({foodtruckId, lat, lng, truckName, closeAt}) => {
+const writeFoodTruckData = ({foodtruckId, lat, lng, truckName, closeAt, online}) => {
     set(ref(realtime_db, 'foodtrucks/' + foodtruckId), {
-        lat, lng, truckName, closeAt
+        lat, lng, truckName, closeAt, online
     });
 }
 
@@ -55,7 +55,7 @@ class Geolocator extends React.Component {
     }
 
     componentDidMount(){
-        console.log("Geolocator props: ", this.props)
+        // console.log("Geolocator props: ", this.props)
         
         // Fetch all foodtruck data
         const db = getDatabase();
@@ -84,6 +84,7 @@ class Geolocator extends React.Component {
                         truckName={this.props.truckName}                // Replace with foodtruck name
                         foodtruckId={this.props.uid}       // Give unique uid
                         closeAt={this.props.closeAt}
+                        online={true}
                     />:null
                 }
                 <GoogleMapReact
@@ -98,9 +99,11 @@ class Geolocator extends React.Component {
                 {
                     this.props.foodTruck?
                     <FoodTruckMarker
+                        myFoodTruck={true}
                         lat={this.props.coords.latitude}
                         lng={this.props.coords.longitude}
-                        text={"Foodtruck owner mark"}
+                        online={true}
+                        text={"My Foodtruck"}
                     />
                         :
                     <Marker
@@ -110,19 +113,26 @@ class Geolocator extends React.Component {
                     />
                 }
 
-                {/* Example marker */}
+                {/* All Truck Markers */}
                 {
                     this.state.data? 
                     Object.keys(this.state.data).map((v,k) => {
                         if (this.state.data[v] === null) return null;
+                        if (this.state.data[v].truckName === undefined) return null;
+                        if (this.state.data[v].lat === undefined) return null;
+                        if (this.state.data[v].lng === undefined) return null;
+                        if (this.state.data[v].online === undefined) return null;
                         if (this.props.uid === v) return null;
+                        // if (v === "online") return null;
                         return (
                             <FoodTruckMarker
                                 key={k}
+                                myFoodTruck={false}
                                 lat={this.state.data[v].lat}
                                 lng={this.state.data[v].lng}
                                 text={this.state.data[v].truckName}
                                 // info={this.state.data[v].info}
+                                online={this.state.data[v].online}
                                 closeAt={this.state.data[v].closeAt}
                             />
                         );

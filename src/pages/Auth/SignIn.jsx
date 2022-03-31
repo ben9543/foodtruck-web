@@ -50,7 +50,7 @@ const SignIn = ({toggle, setToggle}) => {
             <Form onSubmit={handleSignIn}>
                 <input type="email" onChange={(e)=>setEmail(e.target.value)} placeholder="Email"/>
                 <input type="password" onChange={(e)=>setPass(e.target.value)} placeholder="Password"/>
-                <button type="submit">Submit</button>
+                <button className="transition-all" type="submit">Submit</button>
             </Form>
             <Toggle handleToggle={handleToggle} toggleBtnText={"Sign Up"} toggleDescriptionText={"Don't have an account?"}/>
         </Card>

@@ -1,11 +1,29 @@
 import React from "react";
 import { Truck } from "@styled-icons/fa-solid";
-const FoodTruckMarker = ({lat, lng, text}) => {
+import { CloudOffline } from "@styled-icons/fluentui-system-regular"
+
+const FoodTruckMarker = ({lat, lng, text, online, myFoodTruck}) => {
+    let color = "gray-800";
+    let opacity = "60";
+    if (online) {
+        color = "green-500";
+        opacity = "100";
+    }
     return (
-        <div className="text-gray-800 h-6 w-6 font-bold">
-            <Truck/>
-            <div>
-                <p>{text}</p>
+        <div className={`text-${color} w-12 h-12 font-bold grid grid-cols-5 grid-rows-4 opacity-${opacity}`}>
+            <div className="row-span-3 col-span-3 flex items-center justify-center ">
+                <Truck size={30}/>
+            </div>
+            <div className="row-span-3 col-span-2 flex items-start justify-end text-black">
+                {
+                !online ?
+                <CloudOffline size={30}/>
+                    :
+                null
+                }
+            </div>
+            <div className="row-span-1">
+                <p style={{fontSize: ".6rem"}} className="text-gray-800">{text}</p>
             </div>
         </div>
     )
